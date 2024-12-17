@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added Auth App">
-      <change afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Auth/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Bookly.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bookly.iml" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="added base template, db models">
+      <change afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +23,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="Python Script" />
         <option value="HTML File" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -59,6 +58,7 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
     "git-widget-placeholder": "Setup",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -119,7 +119,7 @@
       <workItem from="1733933530007" duration="161000" />
       <workItem from="1733933713122" duration="233000" />
       <workItem from="1733933960512" duration="3053000" />
-      <workItem from="1734023760675" duration="7161000" />
+      <workItem from="1734023760675" duration="16129000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -145,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733935820125</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added base template, db models">
+      <option name="closed" value="true" />
+      <created>1734461060690</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1734461060690</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +164,7 @@
     <MESSAGE value="updated gitignore" />
     <MESSAGE value="added django structure" />
     <MESSAGE value="Added Auth App" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Auth App" />
+    <MESSAGE value="added base template, db models" />
+    <option name="LAST_COMMIT_MESSAGE" value="added base template, db models" />
   </component>
 </project>

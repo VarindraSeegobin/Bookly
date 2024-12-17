@@ -1,4 +1,6 @@
 from Auth import views
+from Bookly.views import account_view
+
 """
 URL configuration for Bookly project.
 
@@ -21,4 +23,5 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
+    path('account/', account_view, name='account')
 ]

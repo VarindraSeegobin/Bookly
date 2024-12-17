@@ -15,7 +15,7 @@
 
     <!-- Main Content -->
     <main>
-        {% block content %}
+        {% block body %}
         <!-- Content from child templates will go here -->
         {% endblock %}
     </main>
@@ -39,7 +39,7 @@
             </a>
         </div>
         <div>
-            <a href="#">
+            <a href="{% url 'account' %}">
                 <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Account">
                 Account
             </a>
