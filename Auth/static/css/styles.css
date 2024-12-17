@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Body Style */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #fdfdfd; /* Optional: Light gray background */
+}
+
+/* Header Style */
+header {
+    text-align: center;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007aff; /* Blue color matching the app */
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Footer Style */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    text-decoration: none;
+    color: #007aff;
+    text-align: center;
+    font-size: 14px;
+}
+
+footer a img {
+    display: block;
+    margin: 0 auto 4px auto;
+    width: 24px;
+    height: 24px;
+}
+
+footer div {
+    text-align: center;
+    flex: 1;
+}
+
+/* Main Content (Optional) */
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    footer {
+        font-size: 12px;
+    }
+}
