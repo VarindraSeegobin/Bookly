@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Book</title>
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Book</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-container">
+                {{ form.title.label }}
+                {{ form.title }}
+            </div>
+            <div class="input-container">
+                {{ form.isbn.label }}
+                {{ form.isbn }}
+            </div>
+            <div class="input-container">
+                {{ form.author.label }}
+                {{ form.author }}
+            </div>
+            <div class="input-container">
+                {{ form.publisher.label }}
+                {{ form.publisher }}
+            </div>
+            <div class="input-container">
+                {{ form.quantity.label }}
+                {{ form.quantity }}
+            </div>
+            <div class="input-container">
+                {{ form.cost.label }}
+                {{ form.cost }}
+            </div>
+            <div class="input-container">
+                {{ form.image.label }}
+                {{ form.image }}
+            </div>
+            <div class="input-container">
+                {{ form.subjects.label }} {{ form.subjects }}
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button">Create Book</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

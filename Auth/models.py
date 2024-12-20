@@ -20,6 +20,9 @@ class Subject(models.Model):
     name = models.CharField(max_length=100)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name + " at " + self.school.name
+
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     isbn = models.CharField(max_length=100, null=False, default= '')
