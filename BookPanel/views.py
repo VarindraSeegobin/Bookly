@@ -52,6 +52,6 @@ def view_activity_log(request):
     pass
 
 @login_required
-def logout(request):
+def logout_user(request):
     logout(request)
     return redirect('admin-login')

@@ -17,7 +17,7 @@ urlpatterns = [
     path('custom-admin/view_books/', view_books, name='view_books'),
     path('custom-admin/view_orders/', view_orders, name='view_orders'),
     path('custom-admin/view_activity_log/', view_activity_log, name='view_activity_log'),
-    path('custom-admin/logout', logout, name='logout'),
+    path('custom-admin/logout', logout_user, name='logout'),
     path('', views.index, name='home'),
     path('account/', account_view, name='account'),
 ]
