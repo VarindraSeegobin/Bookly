@@ -1,0 +1,147 @@
+/* Body and HTML Style */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* Keep content at the top */
+    align-items: center;         /* Horizontally center all content */
+}
+/* Header Style */
+main {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;        /* Horizontally center the form */
+    justify-content: flex-start; /* Keep text content at the top */
+    height: 100%;                /* Make sure the main content takes full height */
+    margin-top: 70px;
+    margin-bottom: 60px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #007aff;
+}
+
+/* Main Content */
+
+/* Footer Style */
+footer {
+    position: fixed; /* Fix the footer to the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+footer a {
+    text-decoration: none;
+    color: #007aff;
+    text-align: center;
+    font-size: 14px;
+}
+
+footer a img {
+    display: block;
+    margin: 0 auto 4px auto;
+    width: 24px;
+    height: 24px;
+}
+
+footer div {
+    text-align: center;
+    flex: 1;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/*Account page styling*/
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin-top: 2px;  /* Add space between the text and the form */
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.input-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.input-container input::placeholder {
+    color: #aaa;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button.primary {
+    background-color: #333;
+}
+
+.button.secondary {
+    background-color: #333;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+.or-text {
+    font-size: 12px;
+    color: #888;
+    margin: 10px 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    footer {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bookly{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Bookly</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block body %}
+        <!-- Content from child templates will go here -->
+        {% endblock %}
+    </main>
+    <footer>
+        <div>
+            <a href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/876/876019.png" alt="Scan">
+                Scan
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/482/482631.png" alt="Search">
+                Search
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart">
+                Cart
+            </a>
+        </div>
+        <div>
+            <a href="{% url 'account' %}">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Account">
+                Account
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
