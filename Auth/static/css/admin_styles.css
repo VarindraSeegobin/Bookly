@@ -1,0 +1,84 @@
+/* general */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*Login form*/
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Adjusted width for smaller screens */
+    max-width: 400px; /* Set a maximum width */
+    text-align: center;
+    margin: 20px; /* Add spacing for smaller devices */
+}
+
+/* Input Fields */
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-container input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Buttons */
+.button-container {
+    text-align: center;
+}
+
+.button {
+    padding: 12px 20px;
+    width: 100%; /* Full width on smaller screens */
+    font-size: 16px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #005bb5;
+}
+
+/* Messages */
+.messages-container {
+    margin-top: 15px;
+    color: #ff0000; /* Highlight error messages in red */
+}
+
+@media (max-width: 600px) {
+
+    /*Login*/
+    h2 {
+        font-size: 20px; /* Adjust heading size */
+    }
+
+    .form-container {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    .button {
+        font-size: 14px; /* Adjust button font size */
+    }
+}
