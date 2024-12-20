@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome, {{ user.first_name }}</h1>
+            <p>What would you like to do today?</p>
+            <a href="{% url 'logout' %}" class="button logout">Logout</a>
+        </header>
+        <main>
+            <div class="card">
+                <h2>Manage Books</h2>
+                <a href="{% url 'create_book' %}" class="button">Create Book</a>
+                <a href="{% url 'delete_book' %}" class="button">Delete Book</a>
+            </div>
+            <div class="card">
+                <h2>Orders</h2>
+                <a href="{% url 'confirm_order' %}" class="button">Confirm Order</a>
+                <a href="{% url 'view_orders' %}" class="button">View All Orders</a>
+            </div>
+            <div class="card">
+                <h2>Reports</h2>
+                <a href="{% url 'view_books' %}" class="button">View All Books</a>
+                <a href="{% url 'view_activity_log' %}" class="button">View Activity Log</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -67,6 +67,90 @@ body {
     color: #ff0000; /* Highlight error messages in red */
 }
 
+/*Home Page*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+    background-color: #007aff;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 5px 0 15px;
+    font-size: 16px;
+}
+
+header .logout {
+    background-color: #ff4d4d;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+header .logout:hover {
+    background-color: #cc0000;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background-color: white;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 30px); /* Default: 3 cards per row */
+    box-sizing: border-box;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.card .button {
+    display: inline-block;
+    background-color: #007aff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 5px;
+    width: 90%;
+}
+
+.card .button:hover {
+    background-color: #005bb5;
+}
+
 @media (max-width: 600px) {
 
     /*Login*/
@@ -80,5 +164,24 @@ body {
 
     .button {
         font-size: 14px; /* Adjust button font size */
+    }
+
+    /*Home Page*/
+        header h1 {
+        font-size: 20px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .card {
+        width: 100%; /* 1 card per row */
+        margin: 10px 0;
+    }
+
+    .card .button {
+        font-size: 14px;
+        padding: 8px 15px;
     }
 }
