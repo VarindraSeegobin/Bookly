@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="added isbn column to books.">
-      <change afterPath="$PROJECT_DIR$/BookPanel/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/create_book.html" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="added ability to create book objects.">
+      <change afterPath="$PROJECT_DIR$/templates/Admin/update_book.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Admin/view_books.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookPanel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Admin/create_book.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/create_book.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734728549002</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added ability to create book objects.">
+      <option name="closed" value="true" />
+      <created>1734732200366</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734732200366</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +225,7 @@
     <MESSAGE value="created admin panel login" />
     <MESSAGE value="added admin panel home page" />
     <MESSAGE value="added isbn column to books." />
-    <option name="LAST_COMMIT_MESSAGE" value="added isbn column to books." />
+    <MESSAGE value="added ability to create book objects." />
+    <option name="LAST_COMMIT_MESSAGE" value="added ability to create book objects." />
   </component>
 </project>
