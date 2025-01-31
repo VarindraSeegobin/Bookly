@@ -1,1 +1,128 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="search-container">
+    <input type="text" id="book-search" placeholder="Search by title...">
+</div>
+
+<div id="book-results-container">
+    <ul id="book-results"></ul>
+</div>
+
+<div class="book-list-container">  {% for book in books %}  <div class="book-item">
+            <img src="{{ book.image }}" alt="{{ book.title }}">
+            <div class="book-details">
+                <h3>{{ book.title }}</h3>
+                <p>Author: {{ book.author }}</p>
+                <div class="book-actions">
+                    <button class="add-to-cart" data-book-id="{{ book.id }}">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V16M12 16L15 13M12 16L9 13" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 3H4L4.5 5H21L19.5 17H7.34L5.38 7H2" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <span class="book-price">${{ book.cost }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<script>
+    const searchInput = document.getElementById('book-search');
+    const resultsList = document.getElementById('book-results');
+    const resultsContainer = document.getElementById('book-results-container');
+    
+    let timeout;
+    
+    searchInput.addEventListener('input', function() {
+        const query = this.value;
+    
+        clearTimeout(timeout);
+    
+        timeout = setTimeout(() => {
+            fetchResults(query);
+        }, 300);
+    });
+
+    function fetchResults(query) {
+        if (query.length > 0) {
+            fetch(`/search_books/?q=${query}`)  // Correct URL with query parameter
+                .then(response => response.json())
+                .then(data => {
+                    resultsList.innerHTML = ''; // Clear previous results *Important*
+                    if (data && data.results && data.results.length > 0) { // Check data structure *Important*
+                        resultsContainer.style.display = 'block';
+                        data.results.forEach(title => {  // Correctly iterate over results *Important*
+                            const listItem = document.createElement('li');
+                            listItem.textContent = title;
+                            resultsList.appendChild(listItem);
+                        });
+                    } else {
+                        resultsContainer.style.display = 'none'; // Hide if no results
+                    }
+                })
+                .catch(error => { // Handle fetch errors
+                    console.error("Error fetching search results:", error);
+                    resultsContainer.style.display = 'none'; // Hide on error
+                });
+        } else {
+            resultsList.innerHTML = '';
+            resultsContainer.style.display = 'none';
+        }
+    }
+    
+    
+    document.addEventListener('click', function (event) {
+        if (!document.querySelector('.search-container').contains(event.target) &&!resultsContainer.contains(event.target)) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const bookId = this.dataset.bookId;
+            // Here you would typically make an AJAX request to add the book to the cart
+            // For example:
+            fetch(`/add_to_cart/${bookId}`, {  // Replace with your actual URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Important for Django CSRF protection
+                },
+                body: JSON.stringify({ book_id: bookId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Book added to cart!'); // Or update cart count, etc.
+                } else {
+                    alert('Error adding to cart.');
+                }
+            });
+        });
+    });
+
+    // Helper function to get the CSRF token (from Django docs)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+{% endblock %}

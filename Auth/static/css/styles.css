@@ -70,6 +70,67 @@ main {
     background-color: #ffffff;
 }
 
+/*Search/home page styling*/
+.search-container {
+    display: flex; /* Align input and button horizontally */
+    width: 100%; /* Occupy full width */
+    max-width: 600px; /* Optional: Set a maximum width */
+    margin: 20px auto; /* Center the search bar */
+    position: relative; /* For positioning the results */
+}
+
+.search-container input[type="text"] {
+    flex-grow: 1; /* Input takes up available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px; /* Rounded left corners */
+    font-size: 16px;
+}
+
+.search-container button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0; /* Rounded right corners */
+    background-color: #f0f0f0; /* Light gray background */
+    cursor: pointer;
+    border-left: none; /* Remove border between input and button */
+}
+
+.search-container svg {
+    width: 20px;
+    height: 20px;
+}
+
+#book-results-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: absolute; /* Position below the search bar */
+    top: 60px; /* Adjust as needed */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none; /* Initially hidden */
+    z-index: 1; /* Ensure it's on top */
+}
+
+#book-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#book-results li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#book-results li:hover {
+    background-color: #f0f0f0;
+}
 /*Account page styling*/
 
 .form-container {

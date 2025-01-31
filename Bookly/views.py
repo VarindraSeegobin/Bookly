@@ -39,3 +39,5 @@ def account_view(request):
 
     return render(request, 'Auth/account.html', {"form": form, "user": user})
 
+
+

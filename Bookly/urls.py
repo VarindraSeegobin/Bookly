@@ -21,5 +21,6 @@ urlpatterns = [
     path('custom-admin/view_activity_log/', view_activity_log, name='view_activity_log'),
     path('custom-admin/logout', logout_user, name='logout'),
     path('', views.index, name='home'),
+    path('search_books/', views.search_books, name='search_books'),
     path('account/', account_view, name='account'),
 ]
