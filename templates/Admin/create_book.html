@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Book</title>
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    <div class="book-form-container">
+        <h2>Create Book</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="book-form-group">
+                <label for="id_title">Title:</label>
+                {{ form.title }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_isbn">ISBN:</label>
+                {{ form.isbn }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_author">Author:</label>
+                {{ form.author }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_publisher">Publisher:</label>
+                {{ form.publisher }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_cost">Cost:</label>
+                {{ form.cost }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_image">Image URL:</label>
+                {{ form.image }}
+            </div>
+            <div class="book-form-group">
+                <label for="id_subjects">Subjects:</label>
+                <div class="subjects-container">
+                    {% for checkbox in form.subjects %}
+                        <div class="subject-item">
+                            {{ checkbox.tag }} {{ checkbox.choice_label }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="book-button-container">
+                <button type="submit" class="book-button">Create Book</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

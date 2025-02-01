@@ -151,6 +151,95 @@ main {
     background-color: #005bb5;
 }
 
+/*Create book css*/
+.book-form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.book-form-container h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.book-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.book-form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+    flex: 1;
+    text-align: left;
+}
+
+.book-form-group input,
+.book-form-group select,
+.book-form-group textarea {
+    flex: 2;
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.book-form-group input[readonly] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.book-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.book-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.book-button:hover {
+    background-color: #005bb5;
+}
+
+.subjects-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start of the container */
+    margin-top: 10px;
+}
+
+.subject-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.subject-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
 @media (max-width: 600px) {
 
     /*Login*/
