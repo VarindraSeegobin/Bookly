@@ -9,18 +9,10 @@ html, body {
     align-items: center;         /* Horizontally center all content */
 }
 /* Header Style */
-main {
-    flex: 1;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;        /* Horizontally center the form */
-    justify-content: flex-start; /* Keep text content at the top */
-    height: 100%;                /* Make sure the main content takes full height */
-    margin-top: 70px;
-    margin-bottom: 60px;
-    padding: 10px;
-    overflow-y: auto;
+.main-content {
+    width: 100vw; /* Full viewport width */
+    max-width: 100%; /* Prevent overflow */
+    padding: 20px; /* Optional padding */
 }
 
 header h1 {
@@ -72,64 +64,98 @@ main {
 
 /*Search/home page styling*/
 .search-container {
-    display: flex; /* Align input and button horizontally */
-    width: 100%; /* Occupy full width */
-    max-width: 600px; /* Optional: Set a maximum width */
-    margin: 20px auto; /* Center the search bar */
-    position: relative; /* For positioning the results */
+    display: flex; /* Align input and icon horizontally */
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Optional max width */
+    margin: 20px auto; /* Centering */
+    padding: 10px;
+    border: 2px solid #ccc; /* 2px border */
+    border-radius: 10px; /* Rounded corners */
+    background: transparent; /* Transparent background */
 }
 
 .search-container input[type="text"] {
-    flex-grow: 1; /* Input takes up available space */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px; /* Rounded left corners */
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent; /* Transparent input */
     font-size: 16px;
-}
-
-.search-container button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 0 5px 5px 0; /* Rounded right corners */
-    background-color: #f0f0f0; /* Light gray background */
-    cursor: pointer;
-    border-left: none; /* Remove border between input and button */
+    padding: 8px;
+    color: #000; /* Text color */
 }
 
 .search-container svg {
     width: 20px;
     height: 20px;
+    margin-right: 10px;
+    color: #666; /* Adjust icon color */
 }
 
 #book-results-container {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    position: absolute; /* Position below the search bar */
-    top: 60px; /* Adjust as needed */
+    position: absolute;
+    top: 180px;
     left: 0;
     right: 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    display: none; /* Initially hidden */
-    z-index: 1; /* Ensure it's on top */
-}
-
-#book-results {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#book-results li {
+    display: none;
+    z-index: 2;
+    max-height: 300px; /* Makes it scrollable */
+    overflow-y: auto;
     padding: 10px;
-    cursor: pointer;
 }
 
-#book-results li:hover {
-    background-color: #f0f0f0;
+.book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.book-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.book-item img {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.book-details {
+    flex-grow: 1;
+}
+
+.book-details h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.book-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.book-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.book-price {
+    font-weight: bold;
+    color: #000;
 }
 /*Account page styling*/
 
@@ -138,14 +164,23 @@ main {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    max-width: 800px;
+    width: 90%;
     margin-top: 2px;  /* Add space between the text and the form */
+}
+.account-container {
+    width: 90%;
+    margin: 0 auto; /* Centers the content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .input-container {
     display: flex;
-    flex-direction: column;
+    width: 100%;
     margin-bottom: 15px;
+    flex-direction: column;
 }
 
 .input-container label {
@@ -204,5 +239,28 @@ main {
 @media (max-width: 600px) {
     footer {
         font-size: 12px;
+    }
+
+    /*Search bar adjustment*/
+        .search-container {
+        width: 85%;
+        margin-top: 60px;
+        padding: 10px;
+    }
+
+    #book-results-container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width:790px;
+    }
+
+    .search-container input[type="text"] {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .search-container svg {
+        width: 18px;
+        height: 18px;
     }
 }

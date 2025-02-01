@@ -1,43 +1,40 @@
 {% extends 'base.html' %}
 {% block body %}
-    <h2>
-    Account Information
-    </h2>
-    <p>
-    We will send pickup confirmation codes to the email provided. We will use the name provided to verify order ownership.
-    </p><br>
-     <div class="form-container">
-        <form method="post" action="">
-            {% csrf_token %}
-            <!-- Email Field -->
-            <div class="input-container">
-                <label for="id_email">Email</label>
-                <input type="email" name="email" id="id_email"  value="{{ form.email.value|default:'' }}">
-            </div>
-            <!-- First Name Field -->
-            <div class="input-container">
-                <label for="id_first_name">Child or parent’s first name</label>
-                <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}">
-            </div>
-            <!-- Last Name Field -->
-            <div class="input-container">
-                <label for="id_last_name">Last name</label>
-                <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}">
-            </div>
-            <!-- Buttons -->
-            <div class="button-container">
-                <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>
-            </div>
-        </form>
-    </div>
-    <br>
-    {% if messages %}
-        <div class="messages-container">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
+    <div class="account-container">
+        <h2>Account Information</h2>
+        <p>
+            We will send pickup confirmation codes to the email provided. We will use the name provided to verify order ownership.
+        </p>
+        <br>
+        <div class="form-container">
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="input-container">
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}">
                 </div>
-            {% endfor %}
+                <div class="input-container">
+                    <label for="id_first_name">Child or parent’s first name</label>
+                    <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}">
+                </div>
+                <div class="input-container">
+                    <label for="id_last_name">Last name</label>
+                    <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}">
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>
+                </div>
+            </form>
         </div>
-    {% endif %}
+        <br>
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
