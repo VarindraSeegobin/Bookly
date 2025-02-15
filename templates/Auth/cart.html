@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="cart-container">
+    {% for subject, items in subjects.items %}
+        <div class="subject-section">
+            <h2>{{ subject.name }}</h2>
+            <div class="cart-items">
+                {% for item in items %}
+                    <div class="cart-item">
+                        <img src="{{ item.content_object.image }}" alt="{{ item.content_object.title }}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <h3>{{ item.content_object.title }}</h3>
+                            <p>Price: ${{ item.content_object.cost }}</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <button type="submit" class="remove-btn">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Your cart is empty.</p>
+    {% endfor %}
+</div>
+{% endblock %}

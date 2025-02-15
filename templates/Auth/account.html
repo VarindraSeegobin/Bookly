@@ -11,15 +11,15 @@
                 {% csrf_token %}
                 <div class="input-container">
                     <label for="id_email">Email</label>
-                    <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}">
+                    <input type="email" name="email" id="id_email" value="{{ user.email|default:'' }}" {% if user %}readonly{% endif %}>
                 </div>
                 <div class="input-container">
                     <label for="id_first_name">Child or parent’s first name</label>
-                    <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}">
+                    <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name|default:'' }}">
                 </div>
                 <div class="input-container">
                     <label for="id_last_name">Last name</label>
-                    <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}">
+                    <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name|default:'' }}">
                 </div>
                 <div class="button-container">
                     <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>

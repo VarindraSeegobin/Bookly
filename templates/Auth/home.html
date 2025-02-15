@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <h3>${book.title}</h3>
                                 <p>Author: ${book.author}</p>
                                 <div class="book-actions">
-                                    <button class="add-to-cart" data-book-id="${book.id}">
+                                    <button class="add-to-cart" data-book-id="${book.id}" data-content-type-id="${book.content_type_id}">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12 9V16M12 16L15 13M12 16L9 13" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             <path d="M2 3H4L4.5 5H21L19.5 17H7.34L5.38 7H2" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -81,43 +81,51 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Hide search results when clicking outside
-    document.addEventListener("click", function (event) {
-        if (
-            !document.querySelector(".search-container").contains(event.target) &&
-            !resultsContainer.contains(event.target)
-        ) {
-            resultsContainer.style.display = "none";
-        }
-    });
-
     // Event delegation for dynamically created "Add to Cart" buttons
     resultsList.addEventListener("click", function (event) {
         const button = event.target.closest(".add-to-cart");
         if (button) {
             const bookId = button.dataset.bookId;
-            addToCart(bookId);
+            const contentTypeId = button.dataset.contentTypeId;
+            addToCart(contentTypeId, bookId);
         }
     });
 
-    function addToCart(bookId) {
-        fetch(`/add_to_cart/${bookId}`, {
+    function addToCart(contentTypeId, objectId) {
+        if (!contentTypeId || !objectId) {
+            console.error("Invalid contentTypeId or objectId");
+            return;
+        }
+
+        fetch(`/add_to_cart/${contentTypeId}/${objectId}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": getCookie("csrftoken"), // CSRF protection for Django
-            },
-            body: JSON.stringify({ book_id: bookId }),
+                "X-CSRFToken": getCookie("csrftoken"),
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    alert("Book added to cart!");
-                } else {
-                    alert("Error adding to cart.");
-                }
-            })
-            .catch((error) => console.error("Error adding to cart:", error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(`Item added to cart! Quantity: ${data.quantity}`);
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error adding to cart:", error));
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement("div");
+        notification.classList.add("cart-notification");
+        notification.innerText = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.opacity = "0";
+            setTimeout(() => notification.remove(), 500);
+        }, 2000);
     }
 
     // Helper function to get CSRF token (from Django docs)
@@ -136,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookieValue;
     }
 });
+
 
 </script>
 
