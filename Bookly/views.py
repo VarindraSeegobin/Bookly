@@ -49,7 +49,7 @@ def account_view(request):
 def cart_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Please log in to access your cart.")
-        return redirect("account")  # Change "account" to the actual URL name of your login page
+        return redirect("account")
 
     user = request.user
     cart, created = Cart.objects.get_or_create(user=user)

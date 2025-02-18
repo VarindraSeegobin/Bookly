@@ -12,7 +12,6 @@ html, body {
 .main-content {
     width: 100vw; /* Full viewport width */
     max-width: 100%; /* Prevent overflow */
-    padding: 20px; /* Optional padding */
 }
 
 header h1 {
@@ -58,7 +57,6 @@ footer div {
 
 main {
     flex: 1;
-    padding: 20px;
     background-color: #ffffff;
 }
 
