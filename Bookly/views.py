@@ -6,6 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import AccountForm
 from Auth.models import User, Cart, CartItem, Book
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login
+from .forms import AccountForm
+from Auth.models import User
+
 def account_view(request):
     user = request.user if request.user.is_authenticated else None
 
@@ -14,29 +21,29 @@ def account_view(request):
 
         if form.is_valid():
             account_data = form.cleaned_data
+            existing_user = User.objects.filter(email=account_data['email']).first()
 
-            if user:
-                # Update logged-in user details
-                form.save()
-                messages.success(request, 'Your details have been updated successfully.')
-            else:
-                # Check if user exists, if not, create new user
-                existing_user = User.objects.filter(email=account_data['email']).first()
-
-                if existing_user:
+            if existing_user:
+                # If user exists, update details (only if they're not logged in already)
+                if not user:
                     login(request, existing_user)
                     messages.success(request, 'Welcome back! You have been logged in.')
-                else:
-                    new_user = User.objects.create(
-                        username=account_data['email'],
-                        email=account_data['email'],
-                        first_name=account_data['first_name'],
-                        last_name=account_data['last_name']
-                    )
-                    new_user.set_unusable_password()  # Since there's no password yet
-                    new_user.save()
-                    login(request, new_user)
-                    messages.success(request, 'Details saved. Account created and logged in successfully.')
+                existing_user.first_name = account_data['first_name']
+                existing_user.last_name = account_data['last_name']
+                existing_user.save()
+                messages.success(request, 'Welcome back! You have been logged in.')
+            else:
+                # Create a new user and log them in
+                new_user = User.objects.create(
+                    username=account_data['email'],
+                    email=account_data['email'],
+                    first_name=account_data['first_name'],
+                    last_name=account_data['last_name']
+                )
+                new_user.set_unusable_password()
+                new_user.save()
+                login(request, new_user)
+                messages.success(request, 'Details saved. Account created and logged in successfully.')
 
             return redirect('account')
 

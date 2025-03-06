@@ -17,6 +17,23 @@
 <div id="book-results-container">
     <div id="book-results" class="book-list"></div>
 </div>
+    
+<div class="cart-items">
+    {% for book in books %}
+    <div class="book-item">
+        <img src="{{ book.image }}" alt="{{ book.title }}">
+        <div class="book-details">
+            <h3>{{ book.title }}</h3>
+            <p>Author: {{ book.author }}</p>
+            <span class="book-price">${{ book.cost }}</span>
+        </div>
+        <button class="add-to-cart" data-book-id="{{ book.id }}" data-content-type-id="{{ book.content_type_id }}">
+            Add to Cart
+        </button>
+    </div>
+    {% endfor %}
+</div>
+    
 
 
 <script>

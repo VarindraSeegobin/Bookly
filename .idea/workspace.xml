@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="fixed zoom issue on mobile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,22 +36,22 @@
     &quot;assignee&quot;: &quot;VarindraSeegobin&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/VarindraSeegobin/Bookly",
-    "accountId": "43c2d4b0-80f9-4de4-9335-eac8ddb21eb7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/VarindraSeegobin/Bookly&quot;,
+    &quot;accountId&quot;: &quot;43c2d4b0-80f9-4de4-9335-eac8ddb21eb7&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "VarindraSeegobin",
-    "repository": "Bookly"
+    &quot;owner&quot;: &quot;VarindraSeegobin&quot;,
+    &quot;repository&quot;: &quot;Bookly&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -58,22 +61,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "#5 on Search",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Search&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\seego\PycharmProjects\Bookly\templates\Auth" />
@@ -131,7 +134,10 @@
       <workItem from="1738639368191" duration="3798000" />
       <workItem from="1739045063111" duration="1793000" />
       <workItem from="1739401394345" duration="5306000" />
-      <workItem from="1739593974819" duration="17567000" />
+      <workItem from="1739593974819" duration="30730000" />
+      <workItem from="1740701664321" duration="2198000" />
+      <workItem from="1740716691323" duration="312000" />
+      <workItem from="1741211992200" duration="6711000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -253,7 +259,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739599468394</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed zoom issue on mobile">
+      <option name="closed" value="true" />
+      <created>1739909918044</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1739909918044</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,6 +289,7 @@
     <MESSAGE value="Added search functionality...did it on the wrong branch...will update search functionality later as its very crude right now." />
     <MESSAGE value="Search functionality seems to work." />
     <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
+    <MESSAGE value="fixed zoom issue on mobile" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed zoom issue on mobile" />
   </component>
 </project>
