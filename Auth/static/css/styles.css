@@ -12,6 +12,7 @@ html, body {
 .main-content {
     width: 100vw; /* Full viewport width */
     max-width: 100%; /* Prevent overflow */
+    padding-bottom: 3em;
 }
 
 header h1 {

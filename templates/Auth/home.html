@@ -10,37 +10,16 @@
     <input type="text" id="book-search" placeholder="Search by title...">
 </div>
 
-<div id="book-results-container">
-    <ul id="book-results"></ul>
-</div>
-
-<div id="book-results-container">
-    <div id="book-results" class="book-list"></div>
-</div>
-    
 <div class="cart-items">
     {% for book in books %}
-    <div class="book-item">
-        <img src="{{ book.image }}" alt="{{ book.title }}">
-        <div class="book-details">
-            <h3>{{ book.title }}</h3>
-            <p>Author: {{ book.author }}</p>
-            <span class="book-price">${{ book.cost }}</span>
-        </div>
-        <button class="add-to-cart" data-book-id="{{ book.id }}" data-content-type-id="{{ book.content_type_id }}">
-            Add to Cart
-        </button>
-    </div>
+        {% include 'Auth/book_container.html' with add_to_cart_remove_from_cart='add' %}
     {% endfor %}
 </div>
-    
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("book-search");
-    const resultsContainer = document.getElementById("book-results-container");
-    const resultsList = document.getElementById("book-results");
+    const cartContainer = document.querySelector(".cart-items");
 
     let timeout;
 
@@ -53,20 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
             timeout = setTimeout(() => {
                 fetchResults(query);
             }, 300);
-        } else {
-            resultsList.innerHTML = "";
-            resultsContainer.style.display = "none";
-        }
+        } 
     });
 
     function fetchResults(query) {
         fetch(`/search_books/?q=${encodeURIComponent(query)}`)
-            .then((response) => response.json())
-            .then((data) => {
-                resultsList.innerHTML = "";
+            .then(response => response.json())
+            .then(data => {
                 if (data && data.results.length > 0) {
-                    resultsContainer.style.display = "block";
-                    data.results.forEach((book) => {
+                    cartContainer.innerHTML = ""; // Clear current items
+
+                    data.results.forEach(book => {
                         const bookItem = document.createElement("div");
                         bookItem.classList.add("book-item");
 
@@ -75,61 +51,52 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="book-details">
                                 <h3>${book.title}</h3>
                                 <p>Author: ${book.author}</p>
-                                <div class="book-actions">
-                                    <button class="add-to-cart" data-book-id="${book.id}" data-content-type-id="${book.content_type_id}">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 9V16M12 16L15 13M12 16L9 13" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M2 3H4L4.5 5H21L19.5 17H7.34L5.38 7H2" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                    <span class="book-price">$${book.cost}</span>
-                                </div>
+                                <span class="book-price">$${book.cost}</span>
                             </div>
+                            <button class="add-to-cart" data-book-id="${book.id}" data-content-type-id="${book.content_type_id}">
+                                Add to Cart
+                            </button>
                         `;
-                        resultsList.appendChild(bookItem);
+
+                        cartContainer.appendChild(bookItem);
                     });
-                } else {
-                    resultsContainer.style.display = "none";
+
+                    attachCartEventListeners();
                 }
             })
-            .catch((error) => {
-                console.error("Error fetching search results:", error);
-                resultsContainer.style.display = "none";
-            });
+            .catch(error => console.error("Error fetching search results:", error));
     }
 
-    // Event delegation for dynamically created "Add to Cart" buttons
-    resultsList.addEventListener("click", function (event) {
-        const button = event.target.closest(".add-to-cart");
-        if (button) {
-            const bookId = button.dataset.bookId;
-            const contentTypeId = button.dataset.contentTypeId;
-            addToCart(contentTypeId, bookId);
-        }
-    });
+    function attachCartEventListeners() {
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", function () {
+                const bookId = this.dataset.bookId;
+                const contentTypeId = this.dataset.contentTypeId;
+                addToCart(bookId, contentTypeId, this);
+            });
+        });
+    }
 
-    function addToCart(contentTypeId, objectId) {
-        if (!contentTypeId || !objectId) {
-            console.error("Invalid contentTypeId or objectId");
-            return;
-        }
-
-        fetch(`/add_to_cart/${contentTypeId}/${objectId}/`, {
+    function addToCart(bookId, contentTypeId, button) {
+        fetch(`/add_to_cart/${contentTypeId}/${bookId}/`, { 
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": getCookie("csrftoken"),
-            }
+                "X-CSRFToken": getCSRFToken(),  
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ book_id: bookId, content_type_id: contentTypeId })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                showNotification(`Item added to cart! Quantity: ${data.quantity}`);
+                button.innerText = "Added!";
+                button.disabled = true;
+                showNotification("Item added to cart!");
             } else {
-                alert("Error: " + data.message);
+                alert(`Failed: ${data.message}`);
             }
         })
-        .catch(error => console.error("Error adding to cart:", error));
+        .catch(error => console.error("Error:", error));
     }
 
     function showNotification(message) {
@@ -145,23 +112,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
     }
 
-    // Helper function to get CSRF token (from Django docs)
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(";");
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.startsWith(name + "=")) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+    function getCSRFToken() {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+        return csrfToken ? csrfToken.value : "";
     }
-});
 
+    attachCartEventListeners();
+});
 
 </script>
 

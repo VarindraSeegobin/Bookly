@@ -12,6 +12,11 @@ from django.contrib import messages
 from django.contrib.auth import login
 from .forms import AccountForm
 from Auth.models import User
+from Auth.models import Cart, CartItem, Book, Stationary
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.csrf import csrf_exempt
 
 def account_view(request):
     user = request.user if request.user.is_authenticated else None
@@ -53,6 +58,9 @@ def account_view(request):
     return render(request, 'Auth/account.html', {"form": form, "user": user})
 
 
+
+
+
 def cart_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Please log in to access your cart.")
@@ -62,15 +70,22 @@ def cart_view(request):
     cart, created = Cart.objects.get_or_create(user=user)
     cart_items = CartItem.objects.filter(cart=cart)
 
-    # Group cart items by subject
-    subjects = {}
+    # Group cart items by category
+    books_by_subject = {}
+    stationary_items = []
+
     for item in cart_items:
-        print(f"Item: {item}, Content Type: {item.content_type}, Object: {item.content_object}")
-        if isinstance(item.content_object, Book):
-            for subject in item.content_object.subjects.all():
-                if subject not in subjects:
-                    subjects[subject] = []
-                subjects[subject].append(item)
+        content_obj = item.content_object
+        print(f"Item: {item}, Content Type: {item.content_type}, Object: {content_obj}")
+
+        if isinstance(content_obj, Book):
+            for subject in content_obj.subjects.all():
+                if subject not in books_by_subject:
+                    books_by_subject[subject] = []
+                books_by_subject[subject].append(item)
+
+        elif isinstance(content_obj, Stationary):
+            stationary_items.append(item)
 
     # Handle item removal
     if request.method == "POST":
@@ -79,9 +94,18 @@ def cart_view(request):
         cart_item.delete()
         return redirect("cart")  # Redirect to refresh cart
 
-    return render(request, "Auth/cart.html", {"subjects": subjects, "cart_items": cart_items})
+    return render(
+        request,
+        "Auth/cart.html",
+        {"books_by_subject": books_by_subject, "stationary_items": stationary_items},
+    )
 
 
+
+
+
+
+@csrf_exempt  # Remove this if CSRF protection is needed (for authenticated users, use CSRF token)
 def add_to_cart(request, content_type_id, object_id):
     if request.method == "POST":
         try:
@@ -92,12 +116,12 @@ def add_to_cart(request, content_type_id, object_id):
             model_class = content_type.model_class()
             item = get_object_or_404(model_class, id=object_id)
 
+            # Ensure user is authenticated
+            if not request.user.is_authenticated:
+                return JsonResponse({"success": False, "message": "User not authenticated"}, status=403)
+
             # Retrieve or create the user's cart
             cart, created = Cart.objects.get_or_create(user=request.user)
-
-            # Ensure `cart` is associated properly
-            if created:
-                print(f"New cart created for user {request.user.id}")
 
             # Retrieve or create the cart item for this product
             cart_item, item_created = CartItem.objects.get_or_create(
@@ -106,16 +130,17 @@ def add_to_cart(request, content_type_id, object_id):
                 object_id=object_id,
                 defaults={"quantity": 1}
             )
+            print(object_id)
 
             if not item_created:
                 # If the item exists, increase quantity atomically
-                CartItem.objects.filter(id=cart_item.id).update(quantity=cart_item.quantity + 1)
-                cart_item.refresh_from_db()  # Refresh to get updated quantity
+                cart_item.quantity += 1
+                cart_item.save()
 
             return JsonResponse({
                 "success": True,
                 "message": "Item added to cart!",
-                "cart_id": cart.id,  # Ensure correct cart association
+                "cart_id": cart.id,
                 "cart_item_id": cart_item.id,
                 "quantity": cart_item.quantity
             })
@@ -124,6 +149,7 @@ def add_to_cart(request, content_type_id, object_id):
             return JsonResponse({"success": False, "message": str(e)}, status=400)
 
     return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
+
 
 
 

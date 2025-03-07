@@ -2,28 +2,34 @@
 
 {% block body %}
 <div class="cart-container">
-    {% for subject, items in subjects.items %}
+
+    <!-- Display Books by Subject -->
+    {% for subject, items in books_by_subject.items %}
         <div class="subject-section">
             <h2>{{ subject.name }}</h2>
             <div class="cart-items">
                 {% for item in items %}
-                    <div class="cart-item">
-                        <img src="{{ item.content_object.image }}" alt="{{ item.content_object.title }}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <h3>{{ item.content_object.title }}</h3>
-                            <p>Price: ${{ item.content_object.cost }}</p>
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="item_id" value="{{ item.id }}">
-                                <button type="submit" class="remove-btn">Remove</button>
-                            </form>
-                        </div>
-                    </div>
+                    {% include 'Auth/book_container.html' with book=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id %}
                 {% endfor %}
             </div>
         </div>
     {% empty %}
-        <p>Your cart is empty.</p>
+        <p>No books in your cart.</p>
     {% endfor %}
+
+    <!-- Display Stationary Items -->
+    {% if stationary_items %}
+        <div class="stationary-section">
+            <h2>Stationary Items</h2>
+            <div class="cart-items">
+                {% for item in stationary_items %}
+                    {% include 'Auth/stationary_container.html' with add_to_cart_remove_from_cart='remove' %}
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No stationary items in your cart.</p>
+    {% endif %}
+
 </div>
 {% endblock %}

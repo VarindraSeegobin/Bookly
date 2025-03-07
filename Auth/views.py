@@ -3,8 +3,15 @@ from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
 from .models import Book  # Import your Book model
 
+
 def index(request):
-    books = Book.objects.all()[:50]  # Fetch the first 50 books
+    books = Book.objects.all()[:50]
+    book_content_type = ContentType.objects.get_for_model(Book)
+
+    # Add content_type_id to each book
+    for book in books:
+        book.content_type_id = book_content_type.id
+
     return render(request, 'Auth/home.html', {'books': books})
 
 def search_books(request):
@@ -19,8 +26,10 @@ def search_books(request):
                 "author": book.author,
                 "image": book.image,
                 "cost": book.cost,
-                'content_type_id': content_type.id,
+                "content_type_id": content_type.id,
+
             }
+
             for book in results
         ]
         return JsonResponse({'results': book_data})
