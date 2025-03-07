@@ -11,7 +11,7 @@
                 {% csrf_token %}
                 <div class="input-container">
                     <label for="id_email">Email</label>
-                    <input type="email" name="email" id="id_email" value="{{ user.email|default:'' }}" {% if user %}readonly{% endif %}>
+                    <input type="email" name="email" id="id_email" value="{{ user.email|default:'' }}">
                 </div>
                 <div class="input-container">
                     <label for="id_first_name">Child or parent’s first name</label>
