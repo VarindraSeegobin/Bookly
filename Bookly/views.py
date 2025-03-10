@@ -3,20 +3,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
-from .forms import AccountForm
-from Auth.models import User, Cart, CartItem, Book
-
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import login
-from .forms import AccountForm
-from Auth.models import User
-from Auth.models import Cart, CartItem, Book, Stationary
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.csrf import csrf_exempt
+from .forms import AccountForm
+from Auth.models import User, Cart, CartItem, Book, Stationary
+
 
 def account_view(request):
     user = request.user if request.user.is_authenticated else None
@@ -29,14 +19,18 @@ def account_view(request):
             existing_user = User.objects.filter(email=account_data['email']).first()
 
             if existing_user:
-                # If user exists, update details (only if they're not logged in already)
                 if not user:
-                    login(request, existing_user)
-                    messages.success(request, 'Welcome back! You have been logged in.')
+                    authenticated_user = authenticate(request, username=existing_user.username, password=None)
+                    if authenticated_user:
+                        login(request, authenticated_user)
+                        messages.success(request, 'Welcome back! You have been logged in.')
+                        merge_session_cart(request, authenticated_user)  # Merge session cart
+
+                # Update existing user details
                 existing_user.first_name = account_data['first_name']
                 existing_user.last_name = account_data['last_name']
                 existing_user.save()
-                messages.success(request, 'Welcome back! You have been logged in.')
+
             else:
                 # Create a new user and log them in
                 new_user = User.objects.create(
@@ -48,7 +42,8 @@ def account_view(request):
                 new_user.set_unusable_password()
                 new_user.save()
                 login(request, new_user)
-                messages.success(request, 'Details saved. Account created and logged in successfully.')
+                messages.success(request, 'Account created successfully. You are now logged in.')
+                merge_session_cart(request, new_user)  # Merge session cart
 
             return redirect('account')
 
@@ -58,98 +53,128 @@ def account_view(request):
     return render(request, 'Auth/account.html', {"form": form, "user": user})
 
 
+def merge_session_cart(request, user):
+    """
+    Merges the session cart with the authenticated user's cart upon login.
+    """
+    session_cart = request.session.get('cart', {})
 
+    if session_cart:
+        cart, _ = Cart.objects.get_or_create(user=user)
+        for key, quantity in session_cart.items():
+            content_type_id, object_id = map(int, key.split('-'))
+            content_type = get_object_or_404(ContentType, id=content_type_id)
+            model_class = content_type.model_class()
+            item = get_object_or_404(model_class, id=object_id)
+
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart, content_type=content_type, object_id=object_id,
+                defaults={"quantity": quantity}
+            )
+
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.save()
+
+        # Clear session cart after merging
+        del request.session['cart']
+        request.session.modified = True
 
 
 def cart_view(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, "Please log in to access your cart.")
-        return redirect("account")
+    """
+    Displays the cart for both authenticated and anonymous users.
+    """
+    user = request.user if request.user.is_authenticated else None
 
-    user = request.user
-    cart, created = Cart.objects.get_or_create(user=user)
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart_items = []
 
-    # Group cart items by category
+    if user:
+        # Fetch items from the user's cart
+        cart, _ = Cart.objects.get_or_create(user=user)
+        cart_items = CartItem.objects.filter(cart=cart)
+    else:
+        # Fetch items from the session
+        session_cart = request.session.get('cart', {})
+        for key, quantity in session_cart.items():
+            content_type_id, object_id = map(int, key.split('-'))
+            content_type = ContentType.objects.get(id=content_type_id)
+            model_class = content_type.model_class()
+            item = model_class.objects.get(id=object_id)
+
+            cart_items.append({
+                "id": key,  # Unique identifier for session item
+                "item": item,
+                "quantity": quantity,
+                "content_type": content_type
+            })
+
     books_by_subject = {}
     stationary_items = []
 
+    # Process cart items
     for item in cart_items:
-        content_obj = item.content_object
-        print(f"Item: {item}, Content Type: {item.content_type}, Object: {content_obj}")
+        content_obj = item["item"] if isinstance(item, dict) else item.content_object
 
         if isinstance(content_obj, Book):
             for subject in content_obj.subjects.all():
                 if subject not in books_by_subject:
                     books_by_subject[subject] = []
                 books_by_subject[subject].append(item)
-
         elif isinstance(content_obj, Stationary):
             stationary_items.append(item)
 
-    # Handle item removal
     if request.method == "POST":
         item_id = request.POST.get("item_id")
-        cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
-        cart_item.delete()
-        return redirect("cart")  # Redirect to refresh cart
+        if user:
+            cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
+            cart_item.delete()
+        else:
+            request.session['cart'].pop(item_id, None)
+            request.session.modified = True
 
-    return render(
-        request,
-        "Auth/cart.html",
-        {"books_by_subject": books_by_subject, "stationary_items": stationary_items},
-    )
+        return redirect("cart")
+
+    print(books_by_subject)
+    return render(request, "Auth/cart.html", {
+        "books_by_subject": books_by_subject,
+        "stationary_items": stationary_items
+    })
 
 
 
-
-
-
-@csrf_exempt  # Remove this if CSRF protection is needed (for authenticated users, use CSRF token)
+@csrf_exempt
 def add_to_cart(request, content_type_id, object_id):
+    """
+    Allows adding items to the cart for both authenticated and anonymous users.
+    """
     if request.method == "POST":
-        try:
-            # Ensure content type exists
-            content_type = get_object_or_404(ContentType, id=content_type_id)
+        content_type = get_object_or_404(ContentType, id=content_type_id)
+        model_class = content_type.model_class()
+        item = get_object_or_404(model_class, id=object_id)
 
-            # Ensure the item exists
-            model_class = content_type.model_class()
-            item = get_object_or_404(model_class, id=object_id)
-
-            # Ensure user is authenticated
-            if not request.user.is_authenticated:
-                return JsonResponse({"success": False, "message": "User not authenticated"}, status=403)
-
-            # Retrieve or create the user's cart
-            cart, created = Cart.objects.get_or_create(user=request.user)
-
-            # Retrieve or create the cart item for this product
-            cart_item, item_created = CartItem.objects.get_or_create(
-                cart=cart,
-                content_type=content_type,
-                object_id=object_id,
-                defaults={"quantity": 1}
+        if request.user.is_authenticated:
+            cart, _ = Cart.objects.get_or_create(user=request.user)
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart, content_type=content_type, object_id=object_id, defaults={"quantity": 1}
             )
-            print(object_id)
 
-            if not item_created:
-                # If the item exists, increase quantity atomically
+            if not created:
                 cart_item.quantity += 1
                 cart_item.save()
+        else:
+            # Store in session
+            session_cart = request.session.get('cart', {})
+            key = f"{content_type_id}-{object_id}"
 
-            return JsonResponse({
-                "success": True,
-                "message": "Item added to cart!",
-                "cart_id": cart.id,
-                "cart_item_id": cart_item.id,
-                "quantity": cart_item.quantity
-            })
+            if key in session_cart:
+                session_cart[key] += 1
+            else:
+                session_cart[key] = 1
 
-        except Exception as e:
-            return JsonResponse({"success": False, "message": str(e)}, status=400)
+            request.session['cart'] = session_cart
+            request.session.modified = True
+
+        return JsonResponse({"success": True, "message": "Item added to cart!"})
 
     return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
-
-
-
-

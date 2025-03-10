@@ -1,8 +1,24 @@
 /* Body and HTML Style */
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+header h1 {
+    font-family: "Pacifico", cursive;
+    font-size: 28px;
+    font-weight: 400;
+    padding:0;
+    margin: 0;
+    font-style: normal;
+    color: #007aff;
+}
+
 html, body {
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Times New Roman", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;  /* Keep content at the top */
@@ -15,11 +31,6 @@ html, body {
     padding-bottom: 3em;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 28px;
-    color: #007aff;
-}
 
 /* Main Content */
 

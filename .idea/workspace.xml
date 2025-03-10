@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added books on homepage. TODO: make add to cart button work.">
-      <change afterPath="$PROJECT_DIR$/templates/Auth/book_container.html" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="added ability to have cart without logging in.">
+      <change afterPath="$PROJECT_DIR$/templates/Auth/stationary_container.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Auth/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,23 +61,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django Server.Bookly.executor": "Debug",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "Search",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.Bookly.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Search&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\seego\PycharmProjects\Bookly\templates\Auth" />
@@ -140,7 +139,8 @@
       <workItem from="1739593974819" duration="30730000" />
       <workItem from="1740701664321" duration="2198000" />
       <workItem from="1740716691323" duration="312000" />
-      <workItem from="1741211992200" duration="17801000" />
+      <workItem from="1741211992200" duration="37086000" />
+      <workItem from="1741621242373" duration="7156000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -278,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741286542162</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Adding to cart, removing from cart and searching work well now.">
+      <option name="closed" value="true" />
+      <created>1741311392504</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1741311392504</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +310,8 @@
     <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
     <MESSAGE value="fixed zoom issue on mobile" />
     <MESSAGE value="Added books on homepage. TODO: make add to cart button work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added books on homepage. TODO: make add to cart button work." />
+    <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding to cart, removing from cart and searching work well now." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
