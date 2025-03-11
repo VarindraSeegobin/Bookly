@@ -86,8 +86,8 @@ def cart_view(request):
     Displays the cart for both authenticated and anonymous users.
     """
     user = request.user if request.user.is_authenticated else None
-
     cart_items = []
+    total_cost = 0  # Initialize total cart cost
 
     if user:
         # Fetch items from the user's cart
@@ -115,6 +115,7 @@ def cart_view(request):
     # Process cart items
     for item in cart_items:
         content_obj = item["item"] if isinstance(item, dict) else item.content_object
+        quantity = item["quantity"] if isinstance(item, dict) else item.quantity
 
         if isinstance(content_obj, Book):
             for subject in content_obj.subjects.all():
@@ -123,6 +124,9 @@ def cart_view(request):
                 books_by_subject[subject].append(item)
         elif isinstance(content_obj, Stationary):
             stationary_items.append(item)
+
+        # Calculate total cost
+        total_cost += content_obj.cost * quantity
 
     if request.method == "POST":
         item_id = request.POST.get("item_id")
@@ -135,11 +139,12 @@ def cart_view(request):
 
         return redirect("cart")
 
-    print(books_by_subject)
     return render(request, "Auth/cart.html", {
         "books_by_subject": books_by_subject,
-        "stationary_items": stationary_items
+        "stationary_items": stationary_items,
+        "total_cost": total_cost
     })
+
 
 
 
