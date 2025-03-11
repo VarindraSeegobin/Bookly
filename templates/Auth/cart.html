@@ -10,10 +10,8 @@
             <div class="cart-items">
                 {% for item in items %}
                     {% if user.is_authenticated %}
-                        {% comment %} Unwrap the cart item if the user is logged in {% endcomment %}
                         {% include 'Auth/book_container.html' with book=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% else %}
-                        {% comment %} For anonymous users, process as session items {% endcomment %}
                         {% include 'Auth/book_container.html' with book=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% endif %}
                 {% endfor %}
@@ -30,10 +28,8 @@
             <div class="cart-items">
                 {% for item in stationary_items %}
                     {% if user.is_authenticated %}
-                        {% comment %} Unwrap the stationary item if the user is logged in {% endcomment %}
                         {% include 'Auth/stationary_container.html' with stationary=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% else %}
-                        {% comment %} For anonymous users, process as session items {% endcomment %}
                         {% include 'Auth/stationary_container.html' with stationary=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% endif %}
                 {% endfor %}
@@ -43,5 +39,12 @@
         <p>No stationary items in your cart.</p>
     {% endif %}
 
-</div>
-{% endblock %}
+    <!-- Cart Summary Section -->
+    {% if total_cost != 0 %}
+        <div class="cart-summary">
+            <button id="checkout-button" class="bookly-button">Checkout: ${{ total_cost|floatformat:2 }}</button>
+        </div>
+    {% endif %}
+    </div>
+    {% endblock %}
+
