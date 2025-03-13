@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from .forms import AccountForm
 from Auth.models import User, Cart, CartItem, Book, Stationary
 
@@ -148,7 +148,7 @@ def cart_view(request):
 
 
 
-@csrf_exempt
+@csrf_protect
 def add_to_cart(request, content_type_id, object_id):
     """
     Allows adding items to the cart for both authenticated and anonymous users.

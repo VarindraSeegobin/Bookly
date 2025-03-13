@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             timeout = setTimeout(() => {
                 fetchResults(query);
             }, 300);
-        } 
+        }
     });
 
     function fetchResults(query) {
@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addToCart(bookId, contentTypeId, button) {
-        fetch(`/add_to_cart/${contentTypeId}/${bookId}/`, { 
+        fetch(`/add_to_cart/${contentTypeId}/${bookId}/`, {
             method: "POST",
             headers: {
-                "X-CSRFToken": getCSRFToken(),  
+                "X-CSRFToken": getCSRFToken(),
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ book_id: bookId, content_type_id: contentTypeId })
@@ -113,9 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getCSRFToken() {
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
-        return csrfToken ? csrfToken.value : "";
+        return document.querySelector('meta[name="csrf-token"]').getAttribute("content");
     }
+
 
     attachCartEventListeners();
 });
