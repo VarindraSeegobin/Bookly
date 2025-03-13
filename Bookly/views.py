@@ -24,11 +24,12 @@ def account_view(request):
                     if authenticated_user:
                         login(request, authenticated_user)
                         messages.success(request, 'Welcome back! You have been logged in.')
-                        merge_session_cart(request, authenticated_user)  # Merge session cart
+                        merge_session_cart(request, authenticated_user)
 
                 # Update existing user details
                 existing_user.first_name = account_data['first_name']
                 existing_user.last_name = account_data['last_name']
+                existing_user.school = account_data['school']
                 existing_user.save()
 
             else:
@@ -37,13 +38,14 @@ def account_view(request):
                     username=account_data['email'],
                     email=account_data['email'],
                     first_name=account_data['first_name'],
-                    last_name=account_data['last_name']
+                    last_name=account_data['last_name'],
+                    school=account_data['school']
                 )
                 new_user.set_unusable_password()
                 new_user.save()
                 login(request, new_user)
                 messages.success(request, 'Account created successfully. You are now logged in.')
-                merge_session_cart(request, new_user)  # Merge session cart
+                merge_session_cart(request, new_user)
 
             return redirect('account')
 
@@ -51,6 +53,7 @@ def account_view(request):
         form = AccountForm(instance=user) if user else AccountForm()
 
     return render(request, 'Auth/account.html', {"form": form, "user": user})
+
 
 
 def merge_session_cart(request, user):

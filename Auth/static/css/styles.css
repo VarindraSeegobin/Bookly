@@ -302,6 +302,18 @@ main {
     color: #333;
 }
 
+.input-container select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    max-width: 100vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .input-container input::placeholder {
     color: #aaa;
 }
@@ -354,12 +366,19 @@ main {
     border-radius: 10px;
 }
 
+.subject-section h2{
+    margin: auto;
+    text-align: center;
+}
+
 .cart-items {
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap when needed */
     gap: 15px;
-    justify-content: flex-start;
+    align-items: stretch;
+    justify-content: center;
 }
+.cart-items {}
 
 .cart-item {
     display: flex;
@@ -403,8 +422,28 @@ main {
         font-size: 12px;
     }
 
+    /*Account page*/
+    .input-container select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #333;
+        max-width: 100vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .input-container select option {
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     /*Search bar adjustment*/
-        .search-container {
+    .search-container {
         width: 85%;
         margin-top: 60px;
         padding: 10px;

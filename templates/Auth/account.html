@@ -21,6 +21,16 @@
                     <label for="id_last_name">Last name</label>
                     <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name|default:'' }}">
                 </div>
+                <div class="input-container">
+                    <label for="id_school">School</label>
+                    <select name="school" id="id_school">
+                        {% for school in form.school.field.queryset %}
+                            <option value="{{ school.id }}" {% if user.school.id == school.id %}selected{% endif %}>
+                                {{ school.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="button-container">
                     <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>
                 </div>
@@ -37,4 +47,5 @@
             </div>
         {% endif %}
     </div>
+    
 {% endblock %}

@@ -3,17 +3,22 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
 
 class School(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
+
+
+class User(AbstractUser):
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
+
+
 
 class Subject(models.Model):
     id = models.AutoField(primary_key=True)
