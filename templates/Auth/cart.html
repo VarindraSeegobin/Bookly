@@ -42,7 +42,11 @@
     <!-- Cart Summary Section -->
     {% if total_cost != 0 %}
         <div class="cart-summary">
-            <button id="checkout-button" class="bookly-button">Checkout: ${{ total_cost|floatformat:2 }}</button>
+        <a href={% url 'checkout' %}>
+            <button id="checkout-button" class="bookly-button">
+                Checkout: ${{ total_cost|floatformat:2 }}
+            </button>
+        </a>
         </div>
     {% endif %}
     </div>

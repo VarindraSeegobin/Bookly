@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="checkout-container">
+    <h2 class="checkout-title">Checkout</h2>
+
+    {% if cart_items %}
+        <table class="checkout-table">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.content_object.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.content_object.cost }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="checkout-summary">
+            <h3>Subtotal: <span>${{ subtotal|floatformat:2 }}</span></h3>
+            <h3>Tax: <span>${{ tax|floatformat:2 }}</span></h3>
+            <h3>Total: <span>${{ total|floatformat:2 }}</span></h3>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="checkout-button">Place Order</button>
+        </form>
+    {% else %}
+        <p class="empty-cart">Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<!-- Delivery Information Section -->
+<div class="delivery-info">
+    <h3>📦 Delivery Information</h3>
+    <p>Your books will be delivered on or before the week before school starts.</p>
+    <p>If you have any questions, feel free to reach out to us:</p>
+    <ul>
+        <li>Email: <a href="mailto:email@email.com">email@email.com</a></li>
+        <li>Phone: <a href="tel:+1234567890">(123) 456-7890</a></li>
+    </ul>
+</div>
+{% endblock %}

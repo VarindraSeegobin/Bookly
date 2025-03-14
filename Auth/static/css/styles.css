@@ -416,6 +416,122 @@ main {
     background: darkred;
 }
 
+/*Checkout Page*/
+.checkout-container {
+    max-width: 90%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.checkout-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 15px;
+}
+
+.checkout-table {
+    padding-left: 0.1%;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.checkout-table th, .checkout-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.checkout-table th {
+    font-size: 18px;
+    color: #333;
+}
+
+.checkout-summary h3 {
+    font-size: 20px;
+    color: #1a237e;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-summary span {
+    font-weight: bold;
+    color: #333;
+}
+
+.checkout-button {
+    background-color: #1a237e;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #283593;
+}
+
+.empty-cart {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+}
+
+.delivery-info {
+    max-width: 90%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.delivery-info h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 10px;
+}
+
+.delivery-info p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.delivery-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.delivery-info li {
+    font-size: 16px;
+    color: #1a237e;
+    margin: 5px 0;
+}
+
+.delivery-info a {
+    color: #1a237e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.delivery-info a:hover {
+    text-decoration: underline;
+}
+
+
+
 /* Responsive Adjustments */
 @media (max-width: 600px) {
     footer {

@@ -1,3 +1,5 @@
+import decimal
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
@@ -5,7 +7,8 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
 from .forms import AccountForm
-from Auth.models import User, Cart, CartItem, Book, Stationary
+from Auth.models import User, Cart, CartItem, Book, Stationary, Order
+import datetime
 
 
 def account_view(request):
@@ -186,3 +189,48 @@ def add_to_cart(request, content_type_id, object_id):
         return JsonResponse({"success": True, "message": "Item added to cart!"})
 
     return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
+
+
+def checkout(request):
+    if not request.user.is_authenticated:
+        messages.info(request, "You must log in before checking out.")
+        return redirect("account_page")  # Replace with your actual login URL
+
+    cart = request.user.cart
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    if not cart_items.exists():
+        messages.error(request, "Your cart is empty.")
+        return redirect("cart_page")  # Replace with your actual cart URL
+
+    subtotal = sum(item.content_object.cost * item.quantity for item in cart_items)
+    tax = float(subtotal) * 0.1  # Assuming a 10% tax rate
+    subtotal = subtotal * decimal.Decimal(0.9)
+    total = float(subtotal) + tax
+
+    if request.method == "POST":
+        # Create an order
+        order = Order.objects.create(
+            user=request.user,
+            date_time_placed= datetime.datetime.now(),
+            paid_for=False
+        )
+        # Add items to order
+        for item in cart_items:
+            if isinstance(item.content_object, Book):
+                order.books.add(item.content_object)
+            elif isinstance(item.content_object, Stationary):
+                order.stationary.add(item.content_object)
+
+        # Clear the cart
+        cart_items.delete()
+
+        messages.success(request, "Your order has been placed successfully.")
+        return redirect("order_summary", order_id=order.id)
+
+    return render(request, "Auth/checkout.html", {
+        "cart_items": cart_items,
+        "subtotal": subtotal,
+        "tax": tax,
+        "total": total,
+    })
