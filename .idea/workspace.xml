@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added checkout screen">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="search now includes stationary">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bookly/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/book_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/book_container.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Auth/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/stationary_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/stationary_container.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +148,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="35813000" />
+      <workItem from="1741789272606" duration="37132000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -346,7 +342,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741962156986</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="search now includes stationary">
+      <option name="closed" value="true" />
+      <created>1742042419343</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742042419343</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +381,8 @@
     <MESSAGE value="Adding to cart is now CSRF protected." />
     <MESSAGE value="Added ability to link a user to a school" />
     <MESSAGE value="Added checkout screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added checkout screen" />
+    <MESSAGE value="search now includes stationary" />
+    <option name="LAST_COMMIT_MESSAGE" value="search now includes stationary" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

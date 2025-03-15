@@ -28,7 +28,7 @@
             <div class="cart-items">
                 {% for item in stationary_items %}
                     {% if user.is_authenticated %}
-                        {% include 'Auth/stationary_container.html' with stationary=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
+                        {% include 'Auth/stationary_container.html' with stationary=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% else %}
                         {% include 'Auth/stationary_container.html' with stationary=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
                     {% endif %}

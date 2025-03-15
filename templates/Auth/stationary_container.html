@@ -6,6 +6,7 @@
     </div>
 
     {% if add_to_cart_remove_from_cart == 'remove' %}
+        <p>Quantity: {{ cart_quantity }}</p>
         <form method="post" action="{% url 'cart' %}">
             {% csrf_token %}
             <input type="hidden" name="item_id" value="{{ item_id }}">
@@ -13,7 +14,7 @@
         </form>
     {% else %}
         <button class="add-to-cart" 
-            data-stationary-id="{{ stationary.id }}" 
+            data-book-id="{{ stationary.id }}"  
             data-content-type-id="{{ stationary.content_type_id }}">
             Add to Cart
         </button>

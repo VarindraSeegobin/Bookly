@@ -144,7 +144,7 @@ def cart_view(request):
             request.session.modified = True
 
         return redirect("cart")
-    print(books_by_subject.items())
+    print(stationary_items)
     return render(request, "Auth/cart.html", {
         "books_by_subject": books_by_subject,
         "stationary_items": stationary_items,
