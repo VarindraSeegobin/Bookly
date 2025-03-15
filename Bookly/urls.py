@@ -25,5 +25,6 @@ urlpatterns = [
     path('account/', account_view, name='account'),
     path('cart/', cart_view, name='cart'),
     path('add_to_cart/<int:content_type_id>/<int:object_id>/', add_to_cart, name="add_to_cart"),
+    path("update_cart_ajax/", update_cart_ajax, name="update_cart_ajax"),
     path('checkout/', checkout, name='checkout'),
 ]

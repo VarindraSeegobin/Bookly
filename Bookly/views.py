@@ -1,5 +1,5 @@
 import decimal
-
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
@@ -144,7 +144,7 @@ def cart_view(request):
             request.session.modified = True
 
         return redirect("cart")
-
+    print(books_by_subject.items())
     return render(request, "Auth/cart.html", {
         "books_by_subject": books_by_subject,
         "stationary_items": stationary_items,
@@ -189,6 +189,68 @@ def add_to_cart(request, content_type_id, object_id):
         return JsonResponse({"success": True, "message": "Item added to cart!"})
 
     return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
+
+def update_cart_ajax(request):
+    """
+    Handles AJAX requests to update cart items dynamically.
+    """
+    if request.method == "POST":
+        data = json.loads(request.body)
+        item_id = data.get("item_id")
+        action = data.get("action")
+        is_authenticated = data.get("is_authenticated") == "true"
+
+        quantity = 0  # Default quantity in case the item is removed
+
+        if is_authenticated:
+            # Logged-in user: Fetch from database
+            user = request.user
+            cart = Cart.objects.get(user=user)
+            cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
+
+            if action == "increase":
+                cart_item.quantity += 1
+            elif action == "decrease":
+                if cart_item.quantity > 1:
+                    cart_item.quantity -= 1
+                else:
+                    cart_item.delete()
+                    return JsonResponse({"status": "success", "quantity": 0})
+            elif action == "remove":
+                cart_item.delete()
+                return JsonResponse({"status": "success", "quantity": 0})
+
+            cart_item.save()
+            quantity = cart_item.quantity
+
+        else:
+            # Guest user: Update session storage
+            session_cart = request.session.get("cart", {})
+
+            if item_id in session_cart:
+                if action == "increase":
+                    session_cart[item_id] += 1
+                elif action == "decrease":
+                    if session_cart[item_id] > 1:
+                        session_cart[item_id] -= 1
+                    else:
+                        del session_cart[item_id]
+                        request.session["cart"] = session_cart
+                        request.session.modified = True
+                        return JsonResponse({"status": "success", "quantity": 0})
+                elif action == "remove":
+                    del session_cart[item_id]
+                    request.session["cart"] = session_cart
+                    request.session.modified = True
+                    return JsonResponse({"status": "success", "quantity": 0})
+
+                request.session["cart"] = session_cart
+                request.session.modified = True
+                quantity = session_cart[item_id]
+
+        return JsonResponse({"status": "success", "quantity": quantity})
+
+    return JsonResponse({"status": "error"}, status=400)
 
 
 def checkout(request):
