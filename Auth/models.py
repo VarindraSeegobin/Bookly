@@ -50,7 +50,7 @@ class Order(models.Model):
     id = models.AutoField(primary_key=True)
     paid_for = models.BooleanField(default=False)
     date_time_placed = models.DateTimeField()
-    date_time_paid = models.DateTimeField()
+    date_time_paid = models.DateTimeField(null = True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
     stationary = models.ManyToManyField(Stationary)

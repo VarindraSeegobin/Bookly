@@ -681,6 +681,7 @@ main {
     /*Shopping cart*/
     .cart-items {
         flex-direction: column;
+        align-items: center;
     }
 
     .cart-item {

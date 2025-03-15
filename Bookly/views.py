@@ -255,8 +255,8 @@ def update_cart_ajax(request):
 
 def checkout(request):
     if not request.user.is_authenticated:
-        messages.info(request, "You must log in before checking out.")
-        return redirect("account_page")  # Replace with your actual login URL
+        messages.info(request, "You must provide these details before checking out. When finished, click Save Details and go back to your Cart.")
+        return redirect("account")  # Replace with your actual login URL
 
     cart = request.user.cart
     cart_items = CartItem.objects.filter(cart=cart)
@@ -274,7 +274,8 @@ def checkout(request):
         # Create an order
         order = Order.objects.create(
             user=request.user,
-            date_time_placed= datetime.datetime.now(),
+            date_time_placed=  datetime.datetime.now(),
+            date_time_paid= None,
             paid_for=False
         )
         # Add items to order
@@ -288,7 +289,7 @@ def checkout(request):
         cart_items.delete()
 
         messages.success(request, "Your order has been placed successfully.")
-        return redirect("order_summary", order_id=order.id)
+        return redirect("account")
 
     return render(request, "Auth/checkout.html", {
         "cart_items": cart_items,
