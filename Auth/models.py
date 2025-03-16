@@ -47,13 +47,29 @@ class Stationary(models.Model):
     cost = models.DecimalField(max_digits=5, decimal_places=2)
 
 class Order(models.Model):
-    id = models.AutoField(primary_key=True)
     paid_for = models.BooleanField(default=False)
     date_time_placed = models.DateTimeField()
-    date_time_paid = models.DateTimeField(null = True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book)
-    stationary = models.ManyToManyField(Stationary)
+    date_time_paid = models.DateTimeField(null=True)
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    qr_code = models.URLField()
+    books = models.ManyToManyField("Book", through="OrderBook")
+    stationary = models.ManyToManyField("Stationary", through="OrderStationary")
+
+class OrderBook(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    book = models.ForeignKey("Book", on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ("order", "book")
+
+class OrderStationary(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    stationary = models.ForeignKey("Stationary", on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ("order", "stationary")
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')

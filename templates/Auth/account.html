@@ -48,4 +48,55 @@
         {% endif %}
     </div>
     
+    
+        {% if orders %}
+        <ul class="order-list">
+            <h2>Your Orders</h2>
+            {% for order in orders %}
+            <li class="order-item">
+                <div class="order-header">
+                    <span>Order #{{ order.id }} - {{ order.date_time_placed }}</span>
+                    <button class="toggle-details">▼</button>
+                </div>
+                <div class="order-details" style="display: none;">
+                    <p><strong>Date Paid:</strong> {{ order.date_time_paid|default:"Not Paid Yet" }}</p>
+                    <p><strong>Total Paid:</strong> ${{ order.total_cost }}</p>
+                    <p><strong>QR Code:</strong> <img src="{{ order.qr_code }}" alt="QR Code"></p>
+                    
+                    <h4>Books</h4>
+                    <ul>
+                        {% for book in order.order_books %}
+                        <li>
+                            <img src="{{ book.book.image }}" alt="{{ book.book.title }}" width="50">
+                            {{ book.book.title }} - {{ book.book.author }} (x{{ book.quantity }}) - ${{ book.book.cost }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+    
+                    <h4>Stationary</h4>
+                    <ul>
+                        {% for item in order.order_stationary %}
+                        <li>
+                            <img src="{{ item.stationary.image }}" alt="{{ item.stationary.title }}" width="50">
+                            {{ item.stationary.title }} (x{{ item.quantity }}) - ${{ item.stationary.cost }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    
+        <script>
+            document.querySelectorAll('.toggle-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    let details = this.parentElement.nextElementSibling;
+                    details.style.display = details.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        </script>
+    
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
 {% endblock %}

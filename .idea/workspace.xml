@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="adding stationary to cart and stationary display now works everywhere.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +149,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="40159000" />
+      <workItem from="1741789272606" duration="52363000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -358,14 +359,29 @@
       <option name="project" value="LOCAL" />
       <updated>1742043762818</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
+      <option name="closed" value="true" />
+      <created>1742054288397</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1742054288397</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
+      <option name="closed" value="true" />
+      <created>1742068936501</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1742068936501</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated gitignore" />
     <MESSAGE value="added django structure" />
     <MESSAGE value="Added Auth App" />
     <MESSAGE value="added base template, db models" />
@@ -390,7 +406,8 @@
     <MESSAGE value="Added checkout screen" />
     <MESSAGE value="search now includes stationary" />
     <MESSAGE value="adding stationary to cart and stationary display now works everywhere." />
-    <option name="LAST_COMMIT_MESSAGE" value="adding stationary to cart and stationary display now works everywhere." />
+    <MESSAGE value="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
