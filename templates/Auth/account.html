@@ -67,8 +67,7 @@
                     <ul>
                         {% for book in order.order_books %}
                         <li>
-                            <img src="{{ book.book.image }}" alt="{{ book.book.title }}" width="50">
-                            {{ book.book.title }} - {{ book.book.author }} (x{{ book.quantity }}) - ${{ book.book.cost }}
+                            {% include 'Auth/book_container.html' with book=book.book add_to_cart_remove_from_cart='order_display' item_id=book.book_id cart_quantity=book.quantity %}
                         </li>
                         {% endfor %}
                     </ul>
@@ -77,8 +76,7 @@
                     <ul>
                         {% for item in order.order_stationary %}
                         <li>
-                            <img src="{{ item.stationary.image }}" alt="{{ item.stationary.title }}" width="50">
-                            {{ item.stationary.title }} (x{{ item.quantity }}) - ${{ item.stationary.cost }}
+                            {% include 'Auth/stationary_container.html' with stationary=item.stationary add_to_cart_remove_from_cart='order_display' item_id=item.stationary_id %}
                         </li>
                         {% endfor %}
                     </ul>

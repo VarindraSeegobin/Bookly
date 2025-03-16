@@ -441,8 +441,8 @@ main {
 .order-list {
     list-style: none;
     padding: 0;
-    margin: 20px auto;
-    width: 60%;
+    margin: 2px auto;
+    width: 90%;
 }
 
 .order-item {
@@ -502,6 +502,7 @@ main {
     color: #005f8e;
     border-bottom: 1px solid #f0f4f8;
     padding-bottom: 5px;
+    text-align: center;
 }
 
 .order-details ul {
@@ -518,7 +519,6 @@ main {
 }
 
 .order-details li img {
-    width: 50px;
     height: auto;
     border-radius: 3px;
 }
@@ -530,7 +530,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
 
