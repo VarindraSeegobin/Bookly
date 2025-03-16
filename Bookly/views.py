@@ -1,15 +1,25 @@
 import decimal
 import json
+from fileinput import filename
+
+import boto3
+import io
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.http import JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
+from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from .forms import AccountForm
 from Auth.models import User, Cart, CartItem, Book, Stationary, Order, OrderBook, OrderStationary
 import datetime
 from django.db.models import Sum, F, DecimalField, ExpressionWrapper
+import qrcode
+import os
+
+
+
 
 
 def account_view(request):
@@ -20,6 +30,7 @@ def account_view(request):
 
         order.order_books = OrderBook.objects.filter(order=order)
         order.order_stationary = OrderStationary.objects.filter(order=order)
+        print(order.order_stationary)
         total_books_cost = OrderBook.objects.filter(order=order).aggregate(
             total_cost=Sum(
                 ExpressionWrapper(
@@ -171,7 +182,6 @@ def cart_view(request):
             request.session.modified = True
 
         return redirect("cart")
-    print(stationary_items)
     return render(request, "Auth/cart.html", {
         "books_by_subject": books_by_subject,
         "stationary_items": stationary_items,
@@ -279,6 +289,34 @@ def update_cart_ajax(request):
 
     return JsonResponse({"status": "error"}, status=400)
 
+def generate_qr_code(order: int):
+    base_url = os.environ.get("QR_CODE_BASE_URL")
+    base_url += str(order)
+
+    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10,border=4)
+    qr.add_data(base_url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    return img
+
+def upload_to_r2(file, filename):
+
+    s3 = boto3.client(
+        service_name='s3',
+        region_name=os.environ.get('CLOUDFLARE_REGION'),
+        endpoint_url=os.environ.get('CLOUDFLARE_ENDPOINT'),
+        aws_access_key_id=os.environ.get('CLOUDFLARE_ACCESS_KEY'),
+        aws_secret_access_key=os.environ.get('CLOUDFLARE_SECRET_KEY')
+    )
+
+    img_byes = io.BytesIO()
+    file.save(img_byes, format='PNG')
+    img_byes.seek(0)
+
+    s3.upload_fileobj(img_byes, 'bookly', filename)
+
+    return f"{os.environ.get('CLOUDFLARE_FIND_ENDPOINT')}/{filename}"
+
 
 def checkout(request):
     if not request.user.is_authenticated:
@@ -305,6 +343,12 @@ def checkout(request):
             date_time_paid= None,
             paid_for=False
         )
+        order_id = order.id
+        qr_code = generate_qr_code(order_id)
+        filename = request.user.email + "_order_id_" + str(order) + ".png"
+        url = upload_to_r2(qr_code, filename)
+        order.qr_code = url
+        order.save()
         # Add items to order
         for item in cart_items:
             if isinstance(item.content_object, Book):
