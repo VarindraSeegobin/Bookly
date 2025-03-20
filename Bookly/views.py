@@ -1,7 +1,5 @@
 import decimal
 import json
-from fileinput import filename
-
 import boto3
 import io
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,14 +7,16 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
-from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
+from django.core.mail import EmailMessage
 from .forms import AccountForm
 from Auth.models import User, Cart, CartItem, Book, Stationary, Order, OrderBook, OrderStationary
 import datetime
 from django.db.models import Sum, F, DecimalField, ExpressionWrapper
 import qrcode
 import os
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -318,9 +318,54 @@ def upload_to_r2(file, filename):
     return f"{os.environ.get('CLOUDFLARE_FIND_ENDPOINT')}/{filename}"
 
 
+from django.core.mail import EmailMessage
+
+def send_order_email(user_email, order, order_items, total_cost):
+    """
+    Sends an order confirmation email with an embedded QR code.
+    """
+    subject = f"Order Confirmation - Order #{order.id}"
+
+    order_details = f"""
+    <p>Hello {order.user.first_name},</p>
+
+    <p>Your order has been successfully placed.</p>
+
+    <p><strong>Order ID:</strong> {order.id}<br>
+    <strong>Date Placed:</strong> {order.date_time_placed.strftime('%Y-%m-%d %H:%M:%S')}<br>
+    <strong>Total Cost:</strong> ${total_cost:.2f}</p>
+
+    <p><strong>Items Ordered:</strong></p>
+    <ul>
+    """
+
+    for item in order_items:
+        order_details += f"<li>{item['name']} (Quantity: {item['quantity']}) - ${item['cost'] * item['quantity']:.2f}</li>"
+
+    order_details += f"""
+    </ul>
+    <p>You can track your order or confirm your order using the QR code below:</p>
+    <img src="{order.qr_code}" alt="QR Code" style="width:200px; height:200px;"/>
+
+    <p>You can expect your order to arrive within the first week of school. Your order can either be picked up by your child or yourself. Thank you for shopping with us!</p>
+
+    <p>Regards,</p>
+    <p>The Bookly Team.</p>
+    """
+
+    # Create email and set content type to HTML
+    email = EmailMessage(subject, order_details, to=[user_email])
+    email.content_subtype = "html"  # Ensure HTML rendering
+
+    # Send email
+    email.send()
+
+
+
 def checkout(request):
     if not request.user.is_authenticated:
-        messages.info(request, "You must provide these details before checking out. When finished, click Save Details and go back to your Cart.")
+        messages.info(request,
+                      "You must provide these details before checking out. When finished, click Save Details and go back to your Cart.")
         return redirect("account")
 
     cart = request.user.cart
@@ -328,10 +373,10 @@ def checkout(request):
 
     if not cart_items.exists():
         messages.error(request, "Your cart is empty.")
-        return redirect("cart_page")  # Replace with your actual cart URL
+        return redirect("cart_page")
 
     subtotal = sum(item.content_object.cost * item.quantity for item in cart_items)
-    tax = float(subtotal) * 0.1  # Assuming a 10% tax rate
+    tax = float(subtotal) * 0.1  # 10% tax
     subtotal = subtotal * decimal.Decimal(0.9)
     total = float(subtotal) + tax
 
@@ -339,25 +384,37 @@ def checkout(request):
         # Create an order
         order = Order.objects.create(
             user=request.user,
-            date_time_placed=  datetime.datetime.now(),
-            date_time_paid= None,
+            date_time_placed=datetime.datetime.now(),
+            date_time_paid=None,
             paid_for=False
         )
-        order_id = order.id
-        qr_code = generate_qr_code(order_id)
-        filename = request.user.email + "_order_id_" + str(order) + ".png"
+
+        qr_code = generate_qr_code(order.id)
+        filename = f"{request.user.email}_order_id_{order.id}.png"
         url = upload_to_r2(qr_code, filename)
         order.qr_code = url
         order.save()
+
+        order_items_list = []  # List to store order details for the email
+
         # Add items to order
         for item in cart_items:
             if isinstance(item.content_object, Book):
-                OrderBook.objects.create(order=order, book=item.content_object,quantity=item.quantity)
+                OrderBook.objects.create(order=order, book=item.content_object, quantity=item.quantity)
             elif isinstance(item.content_object, Stationary):
-                OrderStationary.objects.create(order=order, stationary=item.content_object,quantity=item.quantity)
+                OrderStationary.objects.create(order=order, stationary=item.content_object, quantity=item.quantity)
+
+            order_items_list.append({
+                "name": item.content_object.title,
+                "quantity": item.quantity,
+                "cost": item.content_object.cost
+            })
 
         # Clear the cart
         cart_items.delete()
+
+        # Send order confirmation email
+        send_order_email(request.user.email, order, order_items_list, total)
 
         messages.success(request, "Your order has been placed successfully.")
         return redirect("account")
@@ -368,3 +425,31 @@ def checkout(request):
         "tax": tax,
         "total": total,
     })
+
+@login_required
+def view_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    # Ensure only the order owner or a superuser can access the order
+    if request.user != order.user and not request.user.is_superuser:
+        return redirect("account")  # Redirect unauthorized users
+
+    # If superuser confirms payment
+    if request.user.is_superuser and request.method == "POST":
+        confirmation = request.POST.get("confirmation")
+        if confirmation == "confirm":
+            order.paid_for = True
+            order.date_time_paid = datetime.datetime.now()
+            order.save()
+            messages.success(request, "Payment confirmed successfully.")
+            return redirect("view_order", order_id=order.id)  # Refresh page
+        else:
+            messages.error(request, "Please confirm payment before submitting.")
+
+    context = {
+        "order": order,
+        "books": order.books.all(),
+        "stationary": order.stationary.all(),
+        "is_superuser": request.user.is_superuser,
+    }
+    return render(request, "Admin/view_order.html", context)

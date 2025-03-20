@@ -108,6 +108,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#Email stuff
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'email-smtp.us-east-2.amazonaws.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_ID')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PW')
+DEFAULT_FROM_EMAIL = "bookly@theoh.dev"
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
