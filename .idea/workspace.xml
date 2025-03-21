@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added email confirmation for order placement and view_order route to view and confirm orders. TODO: add email payment confirmation and custom admin routes to view all orders. Also add CSS to view_order.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="TODO: Add add_multiple route to be able to add all books to cart instantly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/view_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/view_order.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +146,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="85511000" />
+      <workItem from="1741789272606" duration="86372000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -406,14 +404,21 @@
       <option name="project" value="LOCAL" />
       <updated>1742477024289</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="TODO: Add add_multiple route to be able to add all books to cart instantly.">
+      <option name="closed" value="true" />
+      <created>1742562926653</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1742562926653</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created Account Page, added db connection" />
     <MESSAGE value="created Book admin panel" />
     <MESSAGE value="created admin panel login" />
     <MESSAGE value="added admin panel home page" />
@@ -438,7 +443,8 @@
     <MESSAGE value="Added ability to view orders in account.html. TODO: add QR code generation and emails. Also, add order management on back end." />
     <MESSAGE value="QR code generation now works for orders. TODO: add email confirmations and order management routes." />
     <MESSAGE value="Added email confirmation for order placement and view_order route to view and confirm orders. TODO: add email payment confirmation and custom admin routes to view all orders. Also add CSS to view_order." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added email confirmation for order placement and view_order route to view and confirm orders. TODO: add email payment confirmation and custom admin routes to view all orders. Also add CSS to view_order." />
+    <MESSAGE value="TODO: Add add_multiple route to be able to add all books to cart instantly." />
+    <option name="LAST_COMMIT_MESSAGE" value="TODO: Add add_multiple route to be able to add all books to cart instantly." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

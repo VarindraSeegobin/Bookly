@@ -460,6 +460,18 @@ def view_order(request, order_id):
         if confirmation == "confirm":
             order.paid_for = True
             order.date_time_paid = datetime.datetime.now()
+
+
+            for order_book in OrderBook.objects.filter(order=order):
+                book = order_book.book
+                book.quantity += order_book.quantity
+                book.save()
+
+            for order_stationary in OrderStationary.objects.filter(order=order):
+                stationary = order_stationary.stationary
+                stationary.quantity += order_stationary.quantity
+                stationary.save()
+
             order.save()
 
             # Send confirmation email
