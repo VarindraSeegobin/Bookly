@@ -30,6 +30,10 @@
                 </div>
 
                 <!-- Recaptcha -->
+                <div class="input-container">
+                    <label for="{{ form.captcha.id_for_label }}">Captcha</label>
+                    {{ form.captcha }}
+                </div>
 
                 <div class="button-container">
                     <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>
