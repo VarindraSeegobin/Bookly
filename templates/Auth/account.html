@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block body %}
     <div class="account-container">
         <h2>Account Information</h2>
@@ -9,34 +10,34 @@
         <div class="form-container">
             <form method="post" action="">
                 {% csrf_token %}
+                
+                <!-- Use Django form object to render fields -->
                 <div class="input-container">
-                    <label for="id_email">Email</label>
-                    <input type="email" name="email" id="id_email" value="{{ user.email|default:'' }}">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
                 </div>
                 <div class="input-container">
-                    <label for="id_first_name">Child or parent’s first name</label>
-                    <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name|default:'' }}">
+                    <label for="{{ form.first_name.id_for_label }}">Child or parent’s first name</label>
+                    {{ form.first_name }}
                 </div>
                 <div class="input-container">
-                    <label for="id_last_name">Last name</label>
-                    <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name|default:'' }}">
+                    <label for="{{ form.last_name.id_for_label }}">Last name</label>
+                    {{ form.last_name }}
                 </div>
                 <div class="input-container">
-                    <label for="id_school">School</label>
-                    <select name="school" id="id_school">
-                        {% for school in form.school.field.queryset %}
-                            <option value="{{ school.id }}" {% if user.school.id == school.id %}selected{% endif %}>
-                                {{ school.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                    <label for="{{ form.school.id_for_label }}">School</label>
+                    {{ form.school }}
                 </div>
+
+                <!-- Recaptcha -->
+
                 <div class="button-container">
                     <button type="submit" class="button primary" formaction="{% url 'account' %}">Save Details</button>
                 </div>
             </form>
         </div>
         <br>
+
         {% if messages %}
             <div class="messages-container">
                 {% for message in messages %}
@@ -47,44 +48,55 @@
             </div>
         {% endif %}
     </div>
-    
-    
-        {% if orders %}
+
+    {% if orders %}
         <ul class="order-list">
             <h2>Your Orders</h2>
             {% for order in orders %}
-            <li class="order-item">
-                <div class="order-header">
-                    <span>Order #{{ order.id }} - {{ order.date_time_placed }}</span>
-                    <button class="toggle-details">▼</button>
-                </div>
-                <div class="order-details" style="display: none;">
-                    <p><strong>Date Paid:</strong> {{ order.date_time_paid|default:"Not Paid Yet" }}</p>
-                    <p><strong>Total Paid:</strong> ${{ order.total_cost }}</p>
-                    <p><strong>QR Code:</strong> <img src="{{ order.qr_code }}" alt="QR Code"></p>
-                    
-                    <h4>Books</h4>
-                    <ul>
-                        {% for book in order.order_books %}
-                        <li>
-                            {% include 'Auth/book_container.html' with book=book.book add_to_cart_remove_from_cart='order_display' item_id=book.book_id cart_quantity=book.quantity %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-    
-                    <h4>Stationary</h4>
-                    <ul>
-                        {% for item in order.order_stationary %}
-                        <li>
-                            {% include 'Auth/stationary_container.html' with stationary=item.stationary add_to_cart_remove_from_cart='order_display' item_id=item.stationary_id %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </li>
+                <li class="order-item">
+                    <div class="order-header">
+                        <span>Order #{{ order.id }} - {{ order.date_time_placed }}</span>
+                        <button class="toggle-details">▼</button>
+                    </div>
+                    <div class="order-details" style="display: none;">
+                        <p><strong>Date Paid:</strong> {{ order.date_time_paid|default:"Not Paid Yet" }}</p>
+                        <p><strong>Total Paid:</strong> ${{ order.total_cost }}</p>
+                        <p><strong>QR Code:</strong> <img src="{{ order.qr_code }}" alt="QR Code"></p>
+
+                        <h4>Books</h4>
+                        <ul>
+                            {% for book in order.order_books %}
+                                <li>
+                                    {% include 'Auth/book_container.html' with book=book.book add_to_cart_remove_from_cart='order_display' item_id=book.book_id cart_quantity=book.quantity %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4>Stationary</h4>
+                        <ul>
+                            {% for item in order.order_stationary %}
+                                <li>
+                                    {% include 'Auth/stationary_container.html' with stationary=item.stationary add_to_cart_remove_from_cart='order_display' item_id=item.stationary_id %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
-    
+
+        {% if form.errors %}
+            <div class="form-errors">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
         <script>
             document.querySelectorAll('.toggle-details').forEach(button => {
                 button.addEventListener('click', function() {
@@ -93,7 +105,7 @@
                 });
             });
         </script>
-    
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     {% else %}
         <p>No orders found.</p>
     {% endif %}

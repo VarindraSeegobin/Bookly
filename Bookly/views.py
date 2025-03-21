@@ -19,58 +19,48 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
-
-
 def account_view(request):
     user = request.user if request.user.is_authenticated else None
     orders = Order.objects.filter(user=user).order_by('-date_time_placed') if user else []
 
-    for order in orders:
+    # Process order costs if the user is authenticated and there are orders
+    if orders:
+        for order in orders:
+            order.order_books = OrderBook.objects.filter(order=order)
+            order.order_stationary = OrderStationary.objects.filter(order=order)
 
-        order.order_books = OrderBook.objects.filter(order=order)
-        order.order_stationary = OrderStationary.objects.filter(order=order)
-        print(order.order_stationary)
-        total_books_cost = OrderBook.objects.filter(order=order).aggregate(
-            total_cost=Sum(
-                ExpressionWrapper(
-                    F('quantity') * F('book__cost'),
-                    output_field=DecimalField()
+            total_books_cost = order.order_books.aggregate(
+                total_cost=Sum(
+                    ExpressionWrapper(
+                        F('quantity') * F('book__cost'),
+                        output_field=DecimalField()
+                    )
                 )
-            )
-        )['total_cost'] or 0
+            )['total_cost'] or 0
 
-        total_stationary_cost = OrderStationary.objects.filter(order=order).aggregate(
-            total_cost=Sum(
-                ExpressionWrapper(
-                    F('quantity') * F('stationary__cost'),
-                    output_field=DecimalField()
+            total_stationary_cost = order.order_stationary.aggregate(
+                total_cost=Sum(
+                    ExpressionWrapper(
+                        F('quantity') * F('stationary__cost'),
+                        output_field=DecimalField()
+                    )
                 )
-            )
-        )['total_cost'] or 0
+            )['total_cost'] or 0
 
-        order.total_cost = total_books_cost + total_stationary_cost
+            order.total_cost = total_books_cost + total_stationary_cost
 
     if request.method == 'POST':
-        form = AccountForm(request.POST, instance=user) if user else AccountForm(request.POST)
+        form = AccountForm(request.POST)
 
         if form.is_valid():
             account_data = form.cleaned_data
             existing_user = User.objects.filter(email=account_data['email']).first()
 
             if existing_user:
-                if not user:
-                    # Directly log the user in since we are not using passwords
-                    login(request, existing_user)
-                    messages.success(request, 'Welcome back! You have been logged in.')
-                    merge_session_cart(request, existing_user)
-
-                # Update existing user details
-                existing_user.first_name = account_data['first_name']
-                existing_user.last_name = account_data['last_name']
-                existing_user.school = account_data['school']
-                existing_user.save()
-
+                # Log the existing user in if they exist (even without a password)
+                login(request, existing_user)
+                messages.success(request, 'Welcome back! You have been logged in.')
+                merge_session_cart(request, existing_user)
             else:
                 # Create a new user and log them in
                 new_user = User.objects.create(
@@ -80,20 +70,27 @@ def account_view(request):
                     last_name=account_data['last_name'],
                     school=account_data['school']
                 )
-                new_user.set_unusable_password()
+                new_user.set_unusable_password()  # No password used
                 new_user.save()
                 login(request, new_user)
                 messages.success(request, 'Account created successfully. You are now logged in.')
                 merge_session_cart(request, new_user)
 
-            return redirect('account')
+            return redirect('account')  # Redirect to the account page after processing the form
 
     else:
-        form = AccountForm(instance=user) if user else AccountForm()
+        # Prepopulate the form with the current user's details if authenticated
+        if user:
+            form = AccountForm(initial={
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'school': user.school if user.school else None  # Handle case if no school is set
+            })
+        else:
+            form = AccountForm()  # Don't pass an instance here as we want to handle new user creation
 
     return render(request, 'Auth/account.html', {"form": form, "user": user, "orders": orders})
-
-
 
 
 def merge_session_cart(request, user):
