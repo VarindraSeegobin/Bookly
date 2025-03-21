@@ -89,17 +89,7 @@
             {% endfor %}
         </ul>
 
-        {% if form.errors %}
-            <div class="form-errors">
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+
         
         <script>
             document.querySelectorAll('.toggle-details').forEach(button => {
