@@ -60,11 +60,10 @@ def account_view(request):
 
             if existing_user:
                 if not user:
-                    authenticated_user = authenticate(request, username=existing_user.username, password=None)
-                    if authenticated_user:
-                        login(request, authenticated_user)
-                        messages.success(request, 'Welcome back! You have been logged in.')
-                        merge_session_cart(request, authenticated_user)
+                    # Directly log the user in since we are not using passwords
+                    login(request, existing_user)
+                    messages.success(request, 'Welcome back! You have been logged in.')
+                    merge_session_cart(request, existing_user)
 
                 # Update existing user details
                 existing_user.first_name = account_data['first_name']
@@ -318,7 +317,7 @@ def upload_to_r2(file, filename):
     return f"{os.environ.get('CLOUDFLARE_FIND_ENDPOINT')}/{filename}"
 
 
-from django.core.mail import EmailMessage
+
 
 def send_order_email(user_email, order, order_items, total_cost):
     """
@@ -426,6 +425,27 @@ def checkout(request):
         "total": total,
     })
 
+def confirm_email(order):
+    """Sends an order confirmation email to the user."""
+    subject = f"Order Confirmation - Order #{order.id}"
+    user_email = order.user.email
+    order_details = f"""
+        <html>
+        <body>
+            <p>Dear {order.user.first_name},</p>
+            <p>Your order <strong>#{order.id}</strong> has been successfully confirmed and paid for.</p>
+            <p>You will receive further updates when your order is shipped.</p>
+            <br>
+            <p>Thank you for supporting the Bookly mission!</p>
+        </body>
+        </html>
+    """
+
+    # Send email
+    email = EmailMessage(subject, order_details, to=[user_email])
+    email.content_subtype = "html"  # Ensure HTML rendering
+    email.send()
+
 @login_required
 def view_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
@@ -441,7 +461,10 @@ def view_order(request, order_id):
             order.paid_for = True
             order.date_time_paid = datetime.datetime.now()
             order.save()
-            messages.success(request, "Payment confirmed successfully.")
+
+            # Send confirmation email
+            confirm_email(order)
+
             return redirect("view_order", order_id=order.id)  # Refresh page
         else:
             messages.error(request, "Please confirm payment before submitting.")

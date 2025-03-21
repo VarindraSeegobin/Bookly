@@ -1,58 +1,64 @@
 {% extends "base.html" %}
 {% block body %}
-    <h2>Order #{{ order.id }}</h2>
-    <p><strong>Date Placed:</strong> {{ order.date_time_placed }}</p>
-    <p><strong>Total Cost:</strong> ${{ total_cost }}</p>
-    <p><strong>Order Status:</strong> {% if order.paid_for %} <span style="color: green;">Paid</span> {% else %} <span style="color: red;">Not Paid</span> {% endif %}</p>
+    <div class="order-container">
+        <h2 class="order-title">Order #{{ order.id }}</h2>
+        
+        <div class="order-details">
+            <p><strong>Date Placed:</strong> {{ order.date_time_placed }}</p>
+            <p><strong>Total Cost:</strong> ${{ total_cost }}</p>
+            <p><strong>Order Status:</strong> 
+                {% if order.paid_for %}
+                    <span class="status-paid">Paid</span>
+                {% else %}
+                    <span class="status-unpaid">Not Paid</span>
+                {% endif %}
+            </p>
+        </div>
 
-    <h3>Books Ordered</h3>
-    <div class="book-container">
-        {% for book in books %}
-            {% include 'Auth/book_container.html' with add_to_cart_remove_from_cart='order_display' book=book item_id=book.id cart_quantity=order.book.quantity %}
-        {% empty %}
-            <p>No books ordered.</p>
-        {% endfor %}
+        <h3 class="section-title">Books Ordered</h3>
+        <div class="book-container">
+            {% for book in books %}
+                {% include 'Auth/book_container.html' with add_to_cart_remove_from_cart='order_display' book=book item_id=book.id cart_quantity=order.book.quantity %}
+            {% empty %}
+                <p class="empty-message">No books ordered.</p>
+            {% endfor %}
+        </div>
+
+        <h3 class="section-title">Stationery Ordered</h3>
+        <div class="stationery-container">
+            {% for stationery in stationary %}
+                {% include 'Auth/stationary_container.html' with stationary=stationery add_to_cart_remove_from_cart='order_display' item_id=stationary.id %}
+            {% empty %}
+                <p class="empty-message">No stationery ordered.</p>
+            {% endfor %}
+        </div>
+
+        <h3 class="qr-title">QR Code for Order Tracking</h3>
+        <div class="qr-container">
+            <img src="{{ order.qr_code }}" alt="QR Code" class="qr-code"/>
+        </div>
+
+        {% if is_superuser and not order.paid_for %}
+            <h3 class="payment-title">Confirm Payment</h3>
+            <form method="post" id="payment-form" class="payment-form">
+                {% csrf_token %}
+                <label for="confirmation">Select Confirmation:</label>
+                <select id="confirmation" name="confirmation" class="payment-select" onchange="toggleConfirmButton()">
+                    <option value="">-- Choose an option --</option>
+                    <option value="confirm">Confirm</option>
+                    <option value="do_not_confirm">Do Not Confirm</option>
+                </select>
+                <br><br>
+                <button type="submit" id="confirm-payment-btn" class="confirm-btn" disabled>Confirm Payment</button>
+            </form>
+
+            <script>
+                function toggleConfirmButton() {
+                    var selectBox = document.getElementById("confirmation");
+                    var button = document.getElementById("confirm-payment-btn");
+                    button.disabled = selectBox.value !== "confirm";
+                }
+            </script>
+        {% endif %}
     </div>
-
-    <h3>Stationery Ordered</h3>
-    <div class="stationary-container">
-        {% for stationary in stationary %}
-            <div class="stationary-item">
-                <img src="{{ stationary.image }}" alt="{{ stationary.title }}">
-                <div class="stationary-details">
-                    <h3>{{ stationary.title }}</h3>
-                    <span class="stationary-price">${{ stationary.cost }}</span>
-                </div>
-
-            </div>
-        {% empty %}
-            <p>No stationery ordered.</p>
-        {% endfor %}
-    </div>
-
-    <h3>QR Code for Order Tracking</h3>
-    <img src="{{ order.qr_code }}" alt="QR Code" style="width:200px; height:200px;"/>
-
-    {% if is_superuser and not order.paid_for %}
-        <h3>Confirm Payment</h3>
-        <form method="post" id="payment-form">
-            {% csrf_token %}
-            <label for="confirmation">Select Confirmation:</label>
-            <select id="confirmation" name="confirmation" onchange="toggleConfirmButton()">
-                <option value="">-- Choose an option --</option>
-                <option value="confirm">Confirm</option>
-                <option value="do_not_confirm">Do Not Confirm</option>
-            </select>
-            <br><br>
-            <button type="submit" id="confirm-payment-btn" disabled>Confirm Payment</button>
-        </form>
-
-        <script>
-            function toggleConfirmButton() {
-                var selectBox = document.getElementById("confirmation");
-                var button = document.getElementById("confirm-payment-btn");
-                button.disabled = selectBox.value !== "confirm";
-            }
-        </script>
-    {% endif %}
 {% endblock %}

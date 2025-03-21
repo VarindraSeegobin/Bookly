@@ -718,6 +718,101 @@ main {
     text-decoration: underline;
 }
 
+/*View order page styling*/
+.order-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #0077ff;
+}
+
+.order-details {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.status-paid {
+    color: green;
+    font-weight: bold;
+}
+
+.status-unpaid {
+    color: red;
+    font-weight: bold;
+}
+
+/* Book and Stationery Containers */
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.book-container,
+.stationery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.empty-message {
+    text-align: center;
+    font-style: italic;
+}
+
+/* QR Code */
+.qr-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.qr-code {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+/* Payment Confirmation */
+.payment-title {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.payment-form {
+    text-align: center;
+}
+
+.payment-select {
+    padding: 8px;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.confirm-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: white;
+    background-color: #0077ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
 
 
 /* Responsive Adjustments */
