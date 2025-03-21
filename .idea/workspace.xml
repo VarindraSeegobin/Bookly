@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added books on homepage. TODO: make add to cart button work.">
-      <change afterPath="$PROJECT_DIR$/templates/Auth/book_container.html" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added view_order confirmation route and email confirmation for order confirmation and css.   .TODO: Add add_multiple routes to be able to add all books to cart instantly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +19,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" show_ignored="true" />
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -29,6 +32,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Search" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -69,7 +77,7 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "Search",
+    "git-widget-placeholder": "Checkout",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -140,7 +148,10 @@
       <workItem from="1739593974819" duration="30730000" />
       <workItem from="1740701664321" duration="2198000" />
       <workItem from="1740716691323" duration="312000" />
-      <workItem from="1741211992200" duration="17801000" />
+      <workItem from="1741211992200" duration="37086000" />
+      <workItem from="1741621242373" duration="7156000" />
+      <workItem from="1741629657909" duration="12458000" />
+      <workItem from="1741789272606" duration="94255000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -278,20 +289,149 @@
       <option name="project" value="LOCAL" />
       <updated>1741286542162</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Adding to cart, removing from cart and searching work well now.">
+      <option name="closed" value="true" />
+      <created>1741311392504</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1741311392504</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added ability to have cart without logging in.">
+      <option name="closed" value="true" />
+      <created>1741629669550</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1741629669550</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added checkout button and dynamically updated total.">
+      <option name="closed" value="true" />
+      <created>1741657975484</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1741657975484</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Adding to cart is now CSRF protected.">
+      <option name="closed" value="true" />
+      <created>1741899544391</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1741899544391</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Adding to cart is now CSRF protected.">
+      <option name="closed" value="true" />
+      <created>1741899580287</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1741899580287</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added ability to link a user to a school">
+      <option name="closed" value="true" />
+      <created>1741906452260</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1741906452260</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added checkout screen">
+      <option name="closed" value="true" />
+      <created>1741962156986</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1741962156986</updated>
+    </task>
+    <task id="LOCAL-00025" summary="search now includes stationary">
+      <option name="closed" value="true" />
+      <created>1742042419343</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742042419343</updated>
+    </task>
+    <task id="LOCAL-00026" summary="adding stationary to cart and stationary display now works everywhere.">
+      <option name="closed" value="true" />
+      <created>1742043762818</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1742043762818</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
+      <option name="closed" value="true" />
+      <created>1742054288397</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1742054288397</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
+      <option name="closed" value="true" />
+      <created>1742068936501</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1742068936501</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind.">
+      <option name="closed" value="true" />
+      <created>1742130083586</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1742130083586</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added ability to view orders in account.html. TODO: add QR code generation and emails. Also, add order management on back end.">
+      <option name="closed" value="true" />
+      <created>1742136267254</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1742136267254</updated>
+    </task>
+    <task id="LOCAL-00031" summary="QR code generation now works for orders. TODO: add email confirmations and order management routes.">
+      <option name="closed" value="true" />
+      <created>1742152629523</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1742152629523</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Added email confirmation for order placement and view_order route to view and confirm orders. TODO: add email payment confirmation and custom admin routes to view all orders. Also add CSS to view_order.">
+      <option name="closed" value="true" />
+      <created>1742477024289</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1742477024289</updated>
+    </task>
+    <task id="LOCAL-00033" summary="TODO: Add add_multiple route to be able to add all books to cart instantly.">
+      <option name="closed" value="true" />
+      <created>1742562926653</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1742562926653</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Added view_order confirmation route and email confirmation for order confirmation and css.   .TODO: Add add_multiple routes to be able to add all books to cart instantly.">
+      <option name="closed" value="true" />
+      <created>1742563643990</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1742563643990</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update .gitignore" />
-    <MESSAGE value="updated gitignore" />
-    <MESSAGE value="added django structure" />
-    <MESSAGE value="Added Auth App" />
-    <MESSAGE value="added base template, db models" />
-    <MESSAGE value="Created Account Page, added db connection" />
-    <MESSAGE value="created Book admin panel" />
     <MESSAGE value="created admin panel login" />
     <MESSAGE value="added admin panel home page" />
     <MESSAGE value="added isbn column to books." />
@@ -302,7 +442,22 @@
     <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
     <MESSAGE value="fixed zoom issue on mobile" />
     <MESSAGE value="Added books on homepage. TODO: make add to cart button work." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added books on homepage. TODO: make add to cart button work." />
+    <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
+    <MESSAGE value="added ability to have cart without logging in." />
+    <MESSAGE value="A" />
+    <MESSAGE value="Added checkout button and dynamically updated total." />
+    <MESSAGE value="Adding to cart is now CSRF protected." />
+    <MESSAGE value="Added ability to link a user to a school" />
+    <MESSAGE value="Added checkout screen" />
+    <MESSAGE value="search now includes stationary" />
+    <MESSAGE value="adding stationary to cart and stationary display now works everywhere." />
+    <MESSAGE value="Added checkout ability - order creation now works. TODO: generate QR codes for orders, create email/whatsapp client and do order confirmation screens with accountability in mind." />
+    <MESSAGE value="Added ability to view orders in account.html. TODO: add QR code generation and emails. Also, add order management on back end." />
+    <MESSAGE value="QR code generation now works for orders. TODO: add email confirmations and order management routes." />
+    <MESSAGE value="Added email confirmation for order placement and view_order route to view and confirm orders. TODO: add email payment confirmation and custom admin routes to view all orders. Also add CSS to view_order." />
+    <MESSAGE value="TODO: Add add_multiple route to be able to add all books to cart instantly." />
+    <MESSAGE value="Added view_order confirmation route and email confirmation for order confirmation and css.   .TODO: Add add_multiple routes to be able to add all books to cart instantly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added view_order confirmation route and email confirmation for order confirmation and css.   .TODO: Add add_multiple routes to be able to add all books to cart instantly." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

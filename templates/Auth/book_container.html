@@ -12,11 +12,13 @@
             <input type="hidden" name="item_id" value="{{ item_id }}">
             <button type="submit" class="remove-btn">Remove from Cart</button>
         </form>
-    {% else %}
+    {% elif add_to_cart_remove_from_cart != 'order_display' %}
         <button class="add-to-cart" 
             data-book-id="{{ book.id }}" 
             data-content-type-id="{{ book.content_type_id }}">
             Add to Cart
         </button>
+    {% else %}
+        <p>Quantity: {{ cart_quantity }}</p>
     {% endif %}
 </div>

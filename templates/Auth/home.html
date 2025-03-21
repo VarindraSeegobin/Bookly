@@ -14,6 +14,9 @@
     {% for book in books %}
         {% include 'Auth/book_container.html' with add_to_cart_remove_from_cart='add' %}
     {% endfor %}
+    {% for stationary in stationaries %}
+        {% include 'Auth/stationary_container.html' with add_to_cart_remove_from_cart='add' %}
+    {% endfor %}
 </div>
 
 <script>
@@ -22,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartContainer = document.querySelector(".cart-items");
 
     let timeout;
+    let originalItems = cartContainer.innerHTML; // Store original items
 
     searchInput.addEventListener("input", function () {
         const query = this.value.trim();
@@ -32,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
             timeout = setTimeout(() => {
                 fetchResults(query);
             }, 300);
-        } 
+        } else {
+            restoreOriginalItems(); // Restore original content when search is cleared
+        }
     });
 
     function fetchResults(query) {
@@ -42,29 +48,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data && data.results.length > 0) {
                     cartContainer.innerHTML = ""; // Clear current items
 
-                    data.results.forEach(book => {
-                        const bookItem = document.createElement("div");
-                        bookItem.classList.add("book-item");
+                    data.results.forEach(item => {
+                        const itemElement = document.createElement("div");
+                        itemElement.classList.add("book-item");
+                        itemElement.setAttribute("data-book-id", item.id);
 
-                        bookItem.innerHTML = `
-                            <img src="${book.image}" alt="${book.title}">
+                        itemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.title}">
                             <div class="book-details">
-                                <h3>${book.title}</h3>
-                                <p>Author: ${book.author}</p>
-                                <span class="book-price">$${book.cost}</span>
+                                <h3>${item.title}</h3>
+                                ${item.author ? `<p>Author: ${item.author}</p>` : ""}
+                                <span class="book-price">$${item.cost}</span>
                             </div>
-                            <button class="add-to-cart" data-book-id="${book.id}" data-content-type-id="${book.content_type_id}">
+                            <button class="add-to-cart" data-book-id="${item.id}" data-content-type-id="${item.content_type_id}">
                                 Add to Cart
                             </button>
                         `;
 
-                        cartContainer.appendChild(bookItem);
+                        cartContainer.appendChild(itemElement);
                     });
 
                     attachCartEventListeners();
+                } else {
+                    cartContainer.innerHTML = "<p>No results found.</p>";
                 }
             })
             .catch(error => console.error("Error fetching search results:", error));
+    }
+
+    function restoreOriginalItems() {
+        cartContainer.innerHTML = originalItems;
+        attachCartEventListeners();
     }
 
     function attachCartEventListeners() {
@@ -78,10 +92,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addToCart(bookId, contentTypeId, button) {
-        fetch(`/add_to_cart/${contentTypeId}/${bookId}/`, { 
+        const existingBook = document.querySelector(`.cart-items .book-item[data-book-id="${bookId}"]`);
+
+        if (existingBook) {
+            showNotification("This book is already in your cart!");
+            return; // Prevent adding duplicate entries
+        }
+
+        fetch(`/add_to_cart/${contentTypeId}/${bookId}/`, {
             method: "POST",
             headers: {
-                "X-CSRFToken": getCSRFToken(),  
+                "X-CSRFToken": getCSRFToken(),
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ book_id: bookId, content_type_id: contentTypeId })
@@ -113,12 +134,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getCSRFToken() {
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
-        return csrfToken ? csrfToken.value : "";
+        return document.querySelector('meta[name="csrf-token"]').getAttribute("content");
     }
 
     attachCartEventListeners();
 });
+
 
 </script>
 

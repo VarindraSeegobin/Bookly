@@ -1,0 +1,22 @@
+<div class="stationary-item">
+    <img src="{{ stationary.image }}" alt="{{ stationary.title }}">
+    <div class="stationary-details">
+        <h3>{{ stationary.title }}</h3>
+        <span class="stationary-price">${{ stationary.cost }}</span>
+    </div>
+
+    {% if add_to_cart_remove_from_cart == 'remove' %}
+        <p>Quantity: {{ cart_quantity }}</p>
+        <form method="post" action="{% url 'cart' %}">
+            {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{ item_id }}">
+            <button type="submit" class="remove-btn">Remove from Cart</button>
+        </form>
+    {% elif not add_to_cart_remove_from_cart == 'order_display' %}
+        <button class="add-to-cart" 
+            data-book-id="{{ stationary.id }}"  
+            data-content-type-id="{{ stationary.content_type_id }}">
+            Add to Cart
+        </button>
+    {% endif %}
+</div>

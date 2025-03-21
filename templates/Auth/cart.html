@@ -9,7 +9,11 @@
             <h2>{{ subject.name }}</h2>
             <div class="cart-items">
                 {% for item in items %}
-                    {% include 'Auth/book_container.html' with book=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id %}
+                    {% if user.is_authenticated %}
+                        {% include 'Auth/book_container.html' with book=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id cart_quantity=item.quantity%}
+                    {% else %}
+                        {% include 'Auth/book_container.html' with book=item.item add_to_cart_remove_from_cart='remove' item_id=item.id cart_quantity=item.quantity%}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -23,7 +27,11 @@
             <h2>Stationary Items</h2>
             <div class="cart-items">
                 {% for item in stationary_items %}
-                    {% include 'Auth/stationary_container.html' with add_to_cart_remove_from_cart='remove' %}
+                    {% if user.is_authenticated %}
+                        {% include 'Auth/stationary_container.html' with stationary=item.content_object add_to_cart_remove_from_cart='remove' item_id=item.id %}
+                    {% else %}
+                        {% include 'Auth/stationary_container.html' with stationary=item.item add_to_cart_remove_from_cart='remove' item_id=item.id %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -31,5 +39,17 @@
         <p>No stationary items in your cart.</p>
     {% endif %}
 
-</div>
-{% endblock %}
+    <!-- Cart Summary Section -->
+    {% if total_cost != 0 %}
+        <div class="cart-summary">
+        <a href={% url 'checkout' %}>
+            <button id="checkout-button" class="bookly-button">
+                Checkout: ${{ total_cost|floatformat:2 }}
+            </button>
+        </a>
+        </div>
+    {% endif %}
+    </div>
+    {% endblock %}
+
+
