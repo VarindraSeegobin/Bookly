@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Login and authentication now work.TODO: Add add_multiple routes to be able to add all books to cart instantly and ADD A CAPTCHA so that the log in and authenticate buttons cannot be abused.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bookly/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
-    </list>
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +143,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="97489000" />
+      <workItem from="1741789272606" duration="97822000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -429,14 +425,21 @@
       <option name="project" value="LOCAL" />
       <updated>1742572238114</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route.">
+      <option name="closed" value="true" />
+      <created>1742579429270</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1742579429270</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added admin panel home page" />
     <MESSAGE value="added isbn column to books." />
     <MESSAGE value="added ability to create book objects." />
     <MESSAGE value="added view all books, update and delete book functionality." />
@@ -461,7 +464,8 @@
     <MESSAGE value="TODO: Add add_multiple route to be able to add all books to cart instantly." />
     <MESSAGE value="Added view_order confirmation route and email confirmation for order confirmation and css.   .TODO: Add add_multiple routes to be able to add all books to cart instantly." />
     <MESSAGE value="Login and authentication now work.TODO: Add add_multiple routes to be able to add all books to cart instantly and ADD A CAPTCHA so that the log in and authenticate buttons cannot be abused." />
-    <option name="LAST_COMMIT_MESSAGE" value="Login and authentication now work.TODO: Add add_multiple routes to be able to add all books to cart instantly and ADD A CAPTCHA so that the log in and authenticate buttons cannot be abused." />
+    <MESSAGE value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
