@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="fixed overflow issue in db and removed no orders sign.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="last save before collectstatic. If things don't go well then rollback.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookPanel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
@@ -179,7 +178,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="120513000" />
+      <workItem from="1741789272606" duration="121184000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -517,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742645682978</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="last save before collectstatic. If things don't go well then rollback.">
+      <option name="closed" value="true" />
+      <created>1742649073801</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1742649073801</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
     <MESSAGE value="fixed zoom issue on mobile" />
     <MESSAGE value="Added books on homepage. TODO: make add to cart button work." />
     <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
@@ -560,7 +566,8 @@
     <MESSAGE value="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route." />
     <MESSAGE value="Added add many to cart route. Also added captcha to admin panel." />
     <MESSAGE value="fixed overflow issue in db and removed no orders sign." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed overflow issue in db and removed no orders sign." />
+    <MESSAGE value="last save before collectstatic. If things don't go well then rollback." />
+    <option name="LAST_COMMIT_MESSAGE" value="last save before collectstatic. If things don't go well then rollback." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
