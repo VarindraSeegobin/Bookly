@@ -39,7 +39,6 @@ def view_books(request):
         return redirect('admin-login')
 
     books = Book.objects.all()
-    print(books)
 
     if request.method == 'POST':
         book_id = request.POST.get('book_id')
@@ -53,7 +52,6 @@ def view_books(request):
             return redirect('update_book', book_id=book_id)
         return HttpResponseBadRequest(request,"Invalid action or missing book_id.")
     return render(request, 'Admin/view_books.html', {'books': books})
-#TODO style
 
 
 
