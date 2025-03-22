@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="collected static. Added whitenoise and tweaked a few settings">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bookly/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -541,7 +539,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742655690779</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins.">
+      <option name="closed" value="true" />
+      <created>1742662181768</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1742662181768</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +565,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
     <MESSAGE value="added ability to have cart without logging in." />
     <MESSAGE value="A" />
     <MESSAGE value="Added checkout button and dynamically updated total." />
@@ -584,7 +589,8 @@
     <MESSAGE value="last save before collectstatic. If things don't go well then rollback." />
     <MESSAGE value="changed csrf cookie and session cookie secure to true" />
     <MESSAGE value="collected static. Added whitenoise and tweaked a few settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="collected static. Added whitenoise and tweaked a few settings" />
+    <MESSAGE value="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins." />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

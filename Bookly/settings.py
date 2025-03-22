@@ -34,7 +34,6 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 ALLOWED_HOSTS = ['varindra.pythonanywhere.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://varindra.pythonanywhere.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -149,6 +148,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = str(os.environ.get('RECAPTCHA_PUBLIC_KEY'))
+RECAPTCHA_PRIVATE_KEY = str(os.environ.get('RECAPTCHA_PRIVATE_KEY'))
 RECAPTCHA_REQUIRED_SCORE = 0.85
