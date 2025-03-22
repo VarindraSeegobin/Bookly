@@ -10,7 +10,7 @@
         <div class="form-container">
             <form method="post" action="">
                 {% csrf_token %}
-                
+
                 <!-- Use Django form object to render fields -->
                 <div class="input-container">
                     <label for="{{ form.email.id_for_label }}">Email</label>
@@ -89,7 +89,7 @@
         </ul>
 
 
-        
+
         <script>
             document.querySelectorAll('.toggle-details').forEach(button => {
                 button.addEventListener('click', function() {
@@ -99,7 +99,6 @@
             });
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    {% else %}
-        <p>No orders found.</p>
+
     {% endif %}
 {% endblock %}
