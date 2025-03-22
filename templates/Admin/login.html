@@ -6,24 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+    {{ form.media }}  <!-- Required for captcha -->
 </head>
 <body>
     <div class="form-container">
         <h2>Admin Login</h2>
         <form method="post" action="">
             {% csrf_token %}
+            
             <div class="input-container">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="id_username">Username</label>
+                {{ form.username }}
             </div>
+
             <div class="input-container">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <label for="id_password">Password</label>
+                {{ form.password }}
             </div>
+
+            <div class="input-container">
+                {{ form.captcha }}  <!-- ReCaptcha will render here -->
+            </div>
+
             <div class="button-container">
                 <button type="submit" class="button primary">Login</button>
             </div>
         </form>
+
         {% if messages %}
             <div class="messages-container">
                 {% for message in messages %}

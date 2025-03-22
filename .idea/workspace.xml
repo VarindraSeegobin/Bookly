@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Built most of the admin panel.TODO: add multiple items route and generate a QR code with this route.">
-      <change afterPath="$PROJECT_DIR$/templates/Admin/create_stationary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/view_stationary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/create_stationary.html" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookPanel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookPanel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/view_books.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/view_books.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Admin/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +181,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="111017000" />
+      <workItem from="1741789272606" duration="116510000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -499,7 +495,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742605032185</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route.">
+      <option name="closed" value="true" />
+      <created>1742607257032</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1742607257032</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added view all books, update and delete book functionality." />
     <MESSAGE value="Added search functionality...did it on the wrong branch...will update search functionality later as its very crude right now." />
     <MESSAGE value="Search functionality seems to work." />
     <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
@@ -542,7 +545,8 @@
     <MESSAGE value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route." />
     <MESSAGE value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route. Add custom admin routes to add a book and view all orders and view all books." />
     <MESSAGE value="Built most of the admin panel.TODO: add multiple items route and generate a QR code with this route." />
-    <option name="LAST_COMMIT_MESSAGE" value="Built most of the admin panel.TODO: add multiple items route and generate a QR code with this route." />
+    <MESSAGE value="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

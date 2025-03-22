@@ -5,21 +5,27 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import BookForm, SchoolForm, SubjectForm, StationaryForm
 from Auth.models import Book, Order, Subject, School, Stationary
+from BookPanel.forms import AdminLoginForm
 from django.http import JsonResponse
 
 def admin_login(request):
+    form = AdminLoginForm(request.POST or None)  # Instantiate form with POST data if available
+
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        if form.is_valid():  # Validate form, including captcha
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-        user = authenticate(request, username=username, password=password)
-        if user is not None and user.is_superuser:
-            login(request, user)
-            return redirect('admin-homepage')
+            user = authenticate(request, username=username, password=password)
+            if user is not None and user.is_superuser:
+                login(request, user)
+                return redirect('admin-homepage')
+            else:
+                messages.error(request, 'Incorrect username or password.')
         else:
-            messages.error(request, 'Incorrect username or password.')
+            messages.error(request, 'Invalid captcha. Please try again.')
 
-    return render(request, 'Admin/login.html')
+    return render(request, 'Admin/login.html', {'form': form})
 
 @login_required
 def homepage(request):
