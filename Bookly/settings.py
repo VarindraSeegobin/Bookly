@@ -88,6 +88,9 @@ DATABASES = {
     ),
 }
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
