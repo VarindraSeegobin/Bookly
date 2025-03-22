@@ -18,7 +18,12 @@
             <div class="card">
                 <h2>Manage Books</h2>
                 <a href="{% url 'create_book' %}" class="button">Create Book</a>
-                <a href="{% url 'delete_book' %}" class="button">Delete Book</a>
+                <a href="{% url 'view_books' %}" class="button">View All Books</a>
+            </div>
+            <div class="card">
+                <h2>Manage Stationary</h2>
+                <a href="{% url 'create_stationary' %}" class="button">Create Stationary</a>
+                <a href="{% url 'view_stationary' %}" class="button">View All Stationary</a>
             </div>
             <div class="card">
                 <h2>Orders</h2>

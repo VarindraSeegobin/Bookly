@@ -4,26 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route. Add custom admin routes to add a book and view all orders and view all books.">
-      <change afterPath="$PROJECT_DIR$/templates/Admin/create_school.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/create_subject.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/delete_book.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/delete_school.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/delete_subject.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/subject_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/view_all_orders.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Admin/view_all_schools.html" afterDir="false" />
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="last save before collectstatic. If things don't go well then rollback.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/admin_styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookPanel/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookPanel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/BookPanel/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bookly/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/create_book.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/create_book.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admin/update_book.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admin/update_book.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +76,7 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "Checkout",
+    "git-widget-placeholder": "#9 on Checkout",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -194,7 +178,7 @@
       <workItem from="1741211992200" duration="37086000" />
       <workItem from="1741621242373" duration="7156000" />
       <workItem from="1741629657909" duration="12458000" />
-      <workItem from="1741789272606" duration="108754000" />
+      <workItem from="1741789272606" duration="121184000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <option name="closed" value="true" />
@@ -500,7 +484,47 @@
       <option name="project" value="LOCAL" />
       <updated>1742579729031</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Built most of the admin panel.TODO: add multiple items route and generate a QR code with this route.">
+      <option name="closed" value="true" />
+      <created>1742605032184</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1742605032185</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route.">
+      <option name="closed" value="true" />
+      <created>1742607257032</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1742607257032</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Added add many to cart route. Also added captcha to admin panel.">
+      <option name="closed" value="true" />
+      <created>1742645173442</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1742645173442</updated>
+    </task>
+    <task id="LOCAL-00042" summary="fixed overflow issue in db and removed no orders sign.">
+      <option name="closed" value="true" />
+      <created>1742645682976</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1742645682978</updated>
+    </task>
+    <task id="LOCAL-00043" summary="last save before collectstatic. If things don't go well then rollback.">
+      <option name="closed" value="true" />
+      <created>1742649073801</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1742649073801</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,11 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added ability to create book objects." />
-    <MESSAGE value="added view all books, update and delete book functionality." />
-    <MESSAGE value="Added search functionality...did it on the wrong branch...will update search functionality later as its very crude right now." />
-    <MESSAGE value="Search functionality seems to work." />
-    <MESSAGE value="Added ability to add to and view cart. TODO: make cart presentable, stress test/ try to break. Add view_book page. Add a total for each subject and a total at the bottom of the cart page. Add checkout functionality." />
     <MESSAGE value="fixed zoom issue on mobile" />
     <MESSAGE value="Added books on homepage. TODO: make add to cart button work." />
     <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
@@ -543,7 +562,12 @@
     <MESSAGE value="Login and authentication now work.TODO: Add add_multiple routes to be able to add all books to cart instantly and ADD A CAPTCHA so that the log in and authenticate buttons cannot be abused." />
     <MESSAGE value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route." />
     <MESSAGE value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route. Add custom admin routes to add a book and view all orders and view all books." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added captcha to the login/register button. TODO: add multiple items route and generate a QR code with this route. Add custom admin routes to add a book and view all orders and view all books." />
+    <MESSAGE value="Built most of the admin panel.TODO: add multiple items route and generate a QR code with this route." />
+    <MESSAGE value="Added Stationary creation view and view all view.TODO: add multiple items route and generate a QR code with this route." />
+    <MESSAGE value="Added add many to cart route. Also added captcha to admin panel." />
+    <MESSAGE value="fixed overflow issue in db and removed no orders sign." />
+    <MESSAGE value="last save before collectstatic. If things don't go well then rollback." />
+    <option name="LAST_COMMIT_MESSAGE" value="last save before collectstatic. If things don't go well then rollback." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_protect
 from django.core.mail import EmailMessage
 from .forms import AccountForm
-from Auth.models import User, Cart, CartItem, Book, Stationary, Order, OrderBook, OrderStationary
+from Auth.models import User, Cart, CartItem, Book, Stationary, Order, OrderBook, OrderStationary, Subject
 import datetime
 from django.db.models import Sum, F, DecimalField, ExpressionWrapper
 import qrcode
@@ -188,7 +188,65 @@ def cart_view(request):
     })
 
 
+@csrf_protect
+def add_many_subjects(request):
+    """
+    Adds all books and stationaries related to given subjects to the cart.
+    """
+    subject_ids = request.GET.getlist("subject_ids")  # Extract subject IDs from query params
+    subjects = Subject.objects.filter(id__in=subject_ids)  # Get valid subjects
+    valid_subject_ids = subjects.values_list("id", flat=True)  # List of found subject IDs
+    invalid_ids = set(subject_ids) - set(map(str, valid_subject_ids))  # Find invalid IDs
 
+    # Get related books and stationaries
+    books = Book.objects.filter(subjects__in=subjects).distinct()
+    stationaries = Stationary.objects.filter(subjects__in=subjects).distinct()
+
+    if request.user.is_authenticated:
+        cart, _ = Cart.objects.get_or_create(user=request.user)
+
+        # Add books to cart
+        for book in books:
+            content_type = ContentType.objects.get_for_model(Book)
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart, content_type=content_type, object_id=book.id, defaults={"quantity": 1}
+            )
+            if not created:
+                cart_item.quantity += 1
+                cart_item.save()
+
+        # Add stationaries to cart
+        for stationary in stationaries:
+            content_type = ContentType.objects.get_for_model(Stationary)
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart, content_type=content_type, object_id=stationary.id, defaults={"quantity": 1}
+            )
+            if not created:
+                cart_item.quantity += 1
+                cart_item.save()
+
+        messages.success(request, "Items added to cart!")
+        return redirect("account")  # Redirect authenticated users to account page
+
+    else:
+        # Store in session
+        session_cart = request.session.get('cart', {})
+
+        # Add books to session cart
+        for book in books:
+            key = f"{ContentType.objects.get_for_model(Book).id}-{book.id}"
+            session_cart[key] = session_cart.get(key, 0) + 1
+
+        # Add stationaries to session cart
+        for stationary in stationaries:
+            key = f"{ContentType.objects.get_for_model(Stationary).id}-{stationary.id}"
+            session_cart[key] = session_cart.get(key, 0) + 1
+
+        request.session['cart'] = session_cart
+        request.session.modified = True
+
+        messages.info(request, "Items added to cart! Add your details above and then go to the shopping cart to checkout.")
+        return redirect("account")
 
 @csrf_protect
 def add_to_cart(request, content_type_id, object_id):

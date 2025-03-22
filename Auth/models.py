@@ -60,7 +60,7 @@ class Order(models.Model):
     qr_code = models.URLField()
     books = models.ManyToManyField("Book", through="OrderBook")
     stationary = models.ManyToManyField("Stationary", through="OrderStationary")
-    total = models.DecimalField(max_digits=5, decimal_places=2)
+    total = models.DecimalField(max_digits=6, decimal_places=2)
 
 class OrderBook(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
