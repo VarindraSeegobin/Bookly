@@ -3,8 +3,8 @@ from django.http import HttpResponseBadRequest
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import BookForm, SchoolForm, SubjectForm
-from Auth.models import Book, Order, Subject, School
+from .forms import BookForm, SchoolForm, SubjectForm, StationaryForm
+from Auth.models import Book, Order, Subject, School, Stationary
 from django.http import JsonResponse
 
 def admin_login(request):
@@ -23,6 +23,8 @@ def admin_login(request):
 
 @login_required
 def homepage(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     return render(request, 'Admin/home.html')
 
 @login_required
@@ -51,6 +53,8 @@ def view_books(request):
 
 @login_required
 def create_book(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     if request.method == 'POST' and request.user.is_superuser:
         form = BookForm(request.POST)
         if form.is_valid():
@@ -62,6 +66,44 @@ def create_book(request):
     else:
         return redirect('admin-login')
 
+
+@login_required
+def view_stationary(request):
+    if not request.user.is_superuser:
+        return redirect('admin-login')
+
+    stationary_items = Stationary.objects.all()
+
+    if request.method == 'POST':
+        stationary_id = request.POST.get('stationary_id')
+        action = request.POST.get('action')
+
+        if stationary_id and action == 'delete':
+            stationary_item = get_object_or_404(Stationary, id=stationary_id)
+            stationary_item.delete()
+            return redirect('view_stationary')
+        elif action == 'update':
+            return redirect('update_stationary', stationary_id=stationary_id)
+        return HttpResponseBadRequest("Invalid action or missing stationary_id.")
+
+    return render(request, 'Admin/view_stationary.html', {'stationary_items': stationary_items})
+
+
+# Create new stationary item
+@login_required
+def create_stationary(request):
+    if not request.user.is_superuser:
+        return redirect('admin-login')
+
+    if request.method == 'POST' and request.user.is_superuser:
+        form = StationaryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('view_stationary')  # Redirect after saving the new stationary item.
+    else:
+        form = StationaryForm()
+
+    return render(request, 'Admin/create_stationary.html', {'form': form})
 
 
 @login_required
@@ -75,6 +117,8 @@ def confirm_order(request):
 
 
 def create_school(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     if request.method == 'POST':
         form = SchoolForm(request.POST)
 
@@ -92,11 +136,15 @@ def update_school(request):
     pass
 
 def view_all_schools(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     schools = School.objects.all().order_by('name')
     return render(request, 'Admin/view_all_schools.html', {'schools': schools})
 
 # View to delete a school
 def delete_school(request, school_id):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     if request.method == 'POST':
         try:
             school = School.objects.get(id=school_id)
@@ -108,6 +156,8 @@ def delete_school(request, school_id):
 
 @login_required
 def create_subject(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     if request.method == 'POST':
         form = SubjectForm(request.POST)
         if form.is_valid():
@@ -119,6 +169,8 @@ def create_subject(request):
     return render(request, 'Admin/create_subject.html', {'form': form})
 
 def subject_list(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     subjects = Subject.objects.all().order_by('school__name')  # Sort subjects by school name
     return render(request, 'Admin/subject_list.html', {'subjects': subjects})
 
@@ -126,7 +178,11 @@ def subject_list(request):
 def update_subject(request):
     pass
 
+
+@login_required
 def delete_subject(request, subject_id):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     if request.method == 'POST':
         try:
             subject = Subject.objects.get(id=subject_id)
@@ -138,8 +194,12 @@ def delete_subject(request, subject_id):
 
 @login_required
 def view_orders(request):
+    if not request.user.is_superuser:
+        return redirect('admin_login')
     orders = Order.objects.all().filter(paid_for=True)
     return render(request, 'Admin/view_all_orders.html',{'orders': orders})
+
+
 
 
 @login_required

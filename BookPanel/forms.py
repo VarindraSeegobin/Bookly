@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from Auth.models import Book, Subject, School
+from Auth.models import Book, Subject, School, Stationary
 
 class BookForm(forms.ModelForm):
     quantity = forms.IntegerField(initial=0)
@@ -30,3 +30,17 @@ class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
         fields = ['name', 'school']
+
+class StationaryForm(forms.ModelForm):
+    quantity = forms.IntegerField(initial=0)
+    subjects = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
+                                              widget=forms.CheckboxSelectMultiple(),
+                                              required=False,
+                                              label="Subjects")
+    class Meta:
+        model = Stationary
+        quantity = forms.IntegerField(initial=0)
+        fields = ['title', 'quantity', 'cost', 'image', 'subjects']
+        widgets = {
+            'image': forms.URLInput(attrs={'placeholder': 'Enter image URL'}),
+        }

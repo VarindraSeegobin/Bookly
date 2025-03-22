@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Stationary</title>
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create New Stationary Item</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create Stationary</button>
+        </form>
+    </div>
+</body>
+</html>
