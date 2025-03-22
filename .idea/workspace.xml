@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="last save before collectstatic. If things don't go well then rollback.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="collected static. Added whitenoise and tweaked a few settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -523,7 +525,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742649073801</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="collected static. Added whitenoise and tweaked a few settings">
+      <option name="closed" value="true" />
+      <created>1742655655966</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1742655655966</updated>
+    </task>
+    <task id="LOCAL-00045" summary="collected static. Added whitenoise and tweaked a few settings">
+      <option name="closed" value="true" />
+      <created>1742655690779</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1742655690779</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,8 +559,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed zoom issue on mobile" />
-    <MESSAGE value="Added books on homepage. TODO: make add to cart button work." />
     <MESSAGE value="Adding to cart, removing from cart and searching work well now." />
     <MESSAGE value="added ability to have cart without logging in." />
     <MESSAGE value="A" />
@@ -566,10 +582,19 @@
     <MESSAGE value="Added add many to cart route. Also added captcha to admin panel." />
     <MESSAGE value="fixed overflow issue in db and removed no orders sign." />
     <MESSAGE value="last save before collectstatic. If things don't go well then rollback." />
-    <option name="LAST_COMMIT_MESSAGE" value="last save before collectstatic. If things don't go well then rollback." />
+    <MESSAGE value="changed csrf cookie and session cookie secure to true" />
+    <MESSAGE value="collected static. Added whitenoise and tweaked a few settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="collected static. Added whitenoise and tweaked a few settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/.venv/Lib/site-packages/django/test/selenium.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

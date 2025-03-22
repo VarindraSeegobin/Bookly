@@ -8,7 +8,7 @@ class AccountForm(forms.ModelForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'school']
+        fields = ['email', 'first_name', 'last_name']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
