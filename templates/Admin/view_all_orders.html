@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Book</title>
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    <div class="orders-container">
+        <h2>Orders List</h2>
+        {% if orders %}
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Placed By</th>
+                        <th>Order Date</th>
+                        <th>Payment Date</th>
+                        <th>Books Ordered</th>
+                        <th>Stationery Ordered</th>
+                        <th>Total Cost</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>#{{ order.id }}</td>
+                            <td>{{ order.user.email }}</td>
+                            <td>{{ order.date_time_placed|date:"F d, Y, g:i A" }}</td>
+                            <td>
+                                {% if order.date_time_paid %}
+                                    {{ order.date_time_paid|date:"F d, Y, g:i A" }}
+                                {% else %}
+                                    <span class="pending">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ order.books.all|length }}</td>
+                            <td>{{ order.stationary.all|length }}</td>
+                            <td>{{ order.total }}</td>
+                            <td><button onclick="window.location.href='{% url 'view_order' order_id=order.id %}'" class="details-btn">View Details</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-orders">No orders found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

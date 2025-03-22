@@ -3,8 +3,9 @@ from django.http import HttpResponseBadRequest
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import BookForm
-from Auth.models import Book
+from .forms import BookForm, SchoolForm, SubjectForm
+from Auth.models import Book, Order, Subject, School
+from django.http import JsonResponse
 
 def admin_login(request):
     if request.method == 'POST':
@@ -61,36 +62,10 @@ def create_book(request):
     else:
         return redirect('admin-login')
 
-@login_required
-def update_book(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-
-    if not request.user.is_superuser:
-        return redirect('admin-login')
-
-    if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES, instance=book)  # Include request.FILES for file uploads
-        if form.is_valid():
-            isbn = form.cleaned_data.get('isbn')
-            if Book.objects.filter(isbn=isbn).exclude(id=book_id).exists():
-                form.add_error('isbn', f"A book with ISBN '{isbn}' already exists.")
-            else:
-                form.save()
-                return redirect('view_books')
-        else:
-            # Render the form with errors if validation fails
-            return render(request, 'Admin/update_book.html', {'form': form, 'book': book})
-
-    elif request.method == 'GET':
-        form = BookForm(instance=book)  # Pre-fill the form with existing data
-        return render(request, 'Admin/update_book.html', {'form': form, 'book': book})
-
-    return HttpResponseBadRequest("Invalid request method.") #TODO prepopulate update book with all field data.
 
 
 @login_required
-def delete_book(request):
-    # Logic for book deletion
+def delete_book(request, book_id):
     pass
 
 @login_required
@@ -99,10 +74,73 @@ def confirm_order(request):
     pass
 
 
+def create_school(request):
+    if request.method == 'POST':
+        form = SchoolForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('view_all_schools')
+    else:
+        form = SchoolForm()
+
+    return render(request, 'Admin/create_school.html', {'form': form})
+
+
+
+def update_school(request):
+    pass
+
+def view_all_schools(request):
+    schools = School.objects.all().order_by('name')
+    return render(request, 'Admin/view_all_schools.html', {'schools': schools})
+
+# View to delete a school
+def delete_school(request, school_id):
+    if request.method == 'POST':
+        try:
+            school = School.objects.get(id=school_id)
+            school.delete()
+            return JsonResponse({'status': 'success'})
+        except School.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})
+
+@login_required
+def create_subject(request):
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_list')
+    else:
+        form = SubjectForm()
+
+    return render(request, 'Admin/create_subject.html', {'form': form})
+
+def subject_list(request):
+    subjects = Subject.objects.all().order_by('school__name')  # Sort subjects by school name
+    return render(request, 'Admin/subject_list.html', {'subjects': subjects})
+
+
+def update_subject(request):
+    pass
+
+def delete_subject(request, subject_id):
+    if request.method == 'POST':
+        try:
+            subject = Subject.objects.get(id=subject_id)
+            subject.delete()
+            return JsonResponse({'status': 'success'})
+        except Subject.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return render(request, subject_list)
+
 @login_required
 def view_orders(request):
-    # Logic for viewing all orders
-    pass
+    orders = Order.objects.all().filter(paid_for=True)
+    return render(request, 'Admin/view_all_orders.html',{'orders': orders})
+
 
 @login_required
 def view_activity_log(request):

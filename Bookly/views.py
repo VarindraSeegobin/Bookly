@@ -121,6 +121,9 @@ def merge_session_cart(request, user):
         request.session.modified = True
 
 
+
+
+
 def cart_view(request):
     """
     Displays the cart for both authenticated and anonymous users.
@@ -382,7 +385,8 @@ def checkout(request):
             user=request.user,
             date_time_placed=datetime.datetime.now(),
             date_time_paid=None,
-            paid_for=False
+            paid_for=False,
+            total=total
         )
 
         qr_code = generate_qr_code(order.id)

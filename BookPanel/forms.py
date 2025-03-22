@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from Auth.models import Book, Subject
+from Auth.models import Book, Subject, School
 
 class BookForm(forms.ModelForm):
+    quantity = forms.IntegerField(initial=0)
     subjects = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                               widget=forms.CheckboxSelectMultiple(),
                                               required=False,
@@ -19,3 +20,13 @@ class BookForm(forms.ModelForm):
         if Book.objects.filter(isbn=isbn).exists():
             raise ValidationError(f"A book with ISBN '{isbn}' already exists.")
         return isbn
+
+class SchoolForm(forms.ModelForm):
+    class Meta:
+        model = School
+        fields = ['title', 'name']
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name', 'school']
