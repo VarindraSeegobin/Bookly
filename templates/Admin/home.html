@@ -18,13 +18,22 @@
             <div class="card">
                 <h2>Manage Books</h2>
                 <a href="{% url 'create_book' %}" class="button">Create Book</a>
-                <a href="{% url 'update_book' %}" class="button"> Update Book</a>
                 <a href="{% url 'delete_book' %}" class="button">Delete Book</a>
             </div>
             <div class="card">
                 <h2>Orders</h2>
                 <a href="{% url 'confirm_order' %}" class="button">Confirm Order</a>
                 <a href="{% url 'view_orders' %}" class="button">View All Orders</a>
+            </div>
+            <div class="card">
+                <h2>Manage Subjects</h2>
+                <a href="{% url 'create_subject' %}" class="button">Create Subject</a>
+                <a href="{% url 'subject_list' %}" class="button"> View Subjects</a>
+            </div>
+            <div class="card">
+                <h2>Manage Schools</h2>
+                <a href="{% url 'create_school' %}" class="button">Create School</a>
+                <a href="{% url 'view_all_schools' %}" class="button"> View All Schools</a>
             </div>
             <div class="card">
                 <h2>Reports</h2>

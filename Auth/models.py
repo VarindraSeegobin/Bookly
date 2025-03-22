@@ -21,14 +21,13 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
 
 
-
 class Subject(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-
     def __str__(self):
         return self.name + " at " + self.school.name
+
 
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
@@ -47,6 +46,11 @@ class Stationary(models.Model):
     image = models.URLField()
     quantity = models.IntegerField()
     cost = models.DecimalField(max_digits=5, decimal_places=2)
+    subjects = models.ManyToManyField(Subject)
+
+
+
+
 
 class Order(models.Model):
     paid_for = models.BooleanField(default=False)
@@ -56,6 +60,7 @@ class Order(models.Model):
     qr_code = models.URLField()
     books = models.ManyToManyField("Book", through="OrderBook")
     stationary = models.ManyToManyField("Stationary", through="OrderStationary")
+    total = models.DecimalField(max_digits=5, decimal_places=2)
 
 class OrderBook(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

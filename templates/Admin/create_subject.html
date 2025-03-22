@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Subject</title>
+</head>
+<body>
+    <h2>Create Subject</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Subject</button>
+    </form>
+
+    <a href="{% url 'subject_list' %}">Back to Subject List</a>
+</body>
+</html>
