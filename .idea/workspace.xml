@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins.">
+    <list default="true" id="d8142593-735d-428c-a195-4df4b8408c12" name="Changes" comment="added str wrapper to recaptcha keys.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auth/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/Auth/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bookly/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bookly/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bookly/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Auth/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Auth/account.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Search" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,7 +79,8 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "UI-Fix",
+    "last_opened_file_path": "C:/Users/seego/PycharmProjects/Bookly/Bookly",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -86,6 +91,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\seego\PycharmProjects\Bookly\Bookly" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\seego\PycharmProjects\Bookly\templates\Auth" />
     </key>
@@ -547,7 +555,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742662181768</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="added str wrapper to recaptcha keys.">
+      <option name="closed" value="true" />
+      <created>1742664566677</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1742664566677</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,7 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added ability to have cart without logging in." />
     <MESSAGE value="A" />
     <MESSAGE value="Added checkout button and dynamically updated total." />
     <MESSAGE value="Adding to cart is now CSRF protected." />
@@ -590,7 +605,8 @@
     <MESSAGE value="changed csrf cookie and session cookie secure to true" />
     <MESSAGE value="collected static. Added whitenoise and tweaked a few settings" />
     <MESSAGE value="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins." />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusted user object to not need a school so that admin could be created. Also added secure hosts and csrf trusted origins." />
+    <MESSAGE value="added str wrapper to recaptcha keys." />
+    <option name="LAST_COMMIT_MESSAGE" value="added str wrapper to recaptcha keys." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -599,6 +615,11 @@
           <url>file://$PROJECT_DIR$/.venv/Lib/site-packages/django/test/selenium.py</url>
           <line>6</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Bookly/settings.py</url>
+          <line>83</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

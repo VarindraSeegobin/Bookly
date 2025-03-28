@@ -89,8 +89,8 @@ def account_view(request):
             })
         else:
             form = AccountForm()  # Don't pass an instance here as we want to handle new user creation
-
-    return render(request, 'Auth/account.html', {"form": form, "user": user, "orders": orders})
+    cart_is_full = Cart.objects.filter(user=user).exists()
+    return render(request, 'Auth/account.html', {"form": form, "user": user, "orders": orders, "cart_is_full": cart_is_full})
 
 
 def merge_session_cart(request, user):
@@ -144,13 +144,13 @@ def cart_view(request):
             content_type = ContentType.objects.get(id=content_type_id)
             model_class = content_type.model_class()
             item = model_class.objects.get(id=object_id)
-
-            cart_items.append({
-                "id": key,  # Unique identifier for session item
-                "item": item,
-                "quantity": quantity,
-                "content_type": content_type
-            })
+            if item not in cart_items:
+                cart_items.append({
+                    "id": key,  # Unique identifier for session item
+                    "item": item,
+                    "quantity": quantity,
+                    "content_type": content_type
+                })
 
     books_by_subject = {}
     stationary_items = []
@@ -159,12 +159,14 @@ def cart_view(request):
     for item in cart_items:
         content_obj = item["item"] if isinstance(item, dict) else item.content_object
         quantity = item["quantity"] if isinstance(item, dict) else item.quantity
-
+        added_books = set()
         if isinstance(content_obj, Book):
-            for subject in content_obj.subjects.all():
-                if subject not in books_by_subject:
-                    books_by_subject[subject] = []
-                books_by_subject[subject].append(item)
+            if content_obj not in added_books:
+                for subject in content_obj.subjects.all():
+                    if subject not in books_by_subject:
+                        books_by_subject[subject] = []
+                    books_by_subject[subject].append(item)
+                    added_books.add(content_obj)
         elif isinstance(content_obj, Stationary):
             stationary_items.append(item)
 
