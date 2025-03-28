@@ -15,11 +15,12 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -82,7 +83,7 @@ WSGI_APPLICATION = 'Bookly.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('POSTGRESQL_CONNECTION_STRING', 'postgres://username:password@localhost:5434/bookly'),
+        default=os.environ.get('POSTGRESQL_CONNECTION_STRING'),
         conn_max_age=600,
         conn_health_checks=True,
     ),

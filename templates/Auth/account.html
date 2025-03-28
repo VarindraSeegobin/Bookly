@@ -17,7 +17,7 @@
                     {{ form.email }}
                 </div>
                 <div class="input-container">
-                    <label for="{{ form.first_name.id_for_label }}">Child or parent’s first name</label>
+                    <label for="{{ form.first_name.id_for_label }}">First name</label>
                     {{ form.first_name }}
                 </div>
                 <div class="input-container">
@@ -31,6 +31,7 @@
 
                 <!-- Recaptcha -->
                 <div class="input-container">
+                    <label for="{{ form.captcha.id_for_label }}">Click this box</label>
                     {{ form.captcha }}
                 </div>
 
@@ -39,6 +40,16 @@
                 </div>
             </form>
         </div>
+        <br>
+    {% if user.is_authenticated and cart_is_full %}
+        <div class="button-container">
+            <a href="{% url 'cart' %}" class="cart-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart Icon" class="cart-icon">
+                View my Child's Books and Stationery
+            </a>
+        </div>
+    {% endif %}
+
         <br>
 
         {% if messages %}

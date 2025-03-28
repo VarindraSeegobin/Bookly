@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib import messages
+
 from Auth.models import User, School
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
@@ -21,3 +23,9 @@ class AccountForm(forms.ModelForm):
             pass  # No need to do anything, it's a new account
 
         return email
+
+    def clean_captcha(self):
+        captcha_value = self.cleaned_data.get("captcha")
+        if not captcha_value:
+            messages.info("Click the box 'I am not a robot' and re-enter your details before saving.")
+        return captcha_value

@@ -317,12 +317,21 @@ main {
 }
 
 /*Checkout button*/
-    .cart-summary {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-    }
+.cart-summary {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    position: fixed;
+    bottom: 50px; /* Adjust distance from the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the div horizontally */
+    z-index: 1000; /* Ensures the div is on top of other content */
+    width: 100%;
+    max-width: 650px;
+    min-width: 250px; /* Ensures the div doesn't get too small */
+    background-color: transparent; /* Optional: makes the background white to ensure it's visible */
+}
 
 .bookly-button {
     background-color: #007bff; /* Vibrant blue for a fresh look */
@@ -430,6 +439,38 @@ main {
 
 .button:hover {
     background-color: #555;
+}
+.cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+.cart-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.cart-button:active {
+    background-color: #004494;
+    transform: scale(0.98);
+}
+
+.cart-icon {
+    width: 30px;  /* Set width */
+    height: 30px; /* Set height */
 }
 
 .or-text {
@@ -815,6 +856,8 @@ main {
 }
 
 
+
+
 /* Responsive Adjustments */
 @media (max-width: 600px) {
     footer {
@@ -881,6 +924,7 @@ main {
     .cart-items {
         flex-direction: column;
         align-items: center;
+        padding-bottom: 60px;
     }
 
     .cart-item {
